@@ -1,0 +1,38 @@
+.custom-hover:hover {
+    background-color: #f6f8f9;
+    border-radius: 5px;
+}
+
+.left-sidebar-container {
+    padding-top: 5rem;
+    margin-right: 20%;
+    min-height: 100vh;
+    overflow-y: auto;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(193 124 74 / var(--tw-border-opacity, 1));
+    background-color: #faf3e0;
+}
+
+.categories-list {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(193 124 74 / var(--tw-border-opacity, 1));
+
+    padding: 20px;
+}
+
+.left-sidebar-links-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.left-sidebar-link {
+    color: rgb(139, 58, 58);
+    cursor: pointer;
+    font-size: 36px;
+}
