@@ -4,7 +4,8 @@
 }
 
 .left-sidebar-container {
-    padding-top: 5rem;
+    padding-top: 1rem;
+    margin-top: 5rem;
     margin-right: 20%;
     min-height: 100vh;
     overflow-y: auto;
@@ -15,8 +16,8 @@
 }
 
 .categories-list {
-    margin-top: 4rem;
-    margin-bottom: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: rgb(193 124 74 / var(--tw-border-opacity, 1));

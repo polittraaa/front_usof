@@ -38,16 +38,16 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
     if (route === 'login' || route === 'register' || route === 'verify-email' || route === 'password-reset') {
         return (
             <nav className="bar fixed top-0 left-0 w-100 z-5">
-                <p className="f3 link dim black underline pa3 pointer ma0" onClick={() => onRouteChange('home')}>Home</p>
-                <p className="f3 link dim black underline pa3 pointer ma0" onClick={() => onRouteChange('login')}>Log In</p>
-                <p className="f3 link dim black underline pa3 pointer ma0 " onClick={() => onRouteChange('register')}>Register</p>
+                <p className="text-link link pointer" onClick={() => onRouteChange('home')}>Home</p>
+                <p className="text-link link pointer" onClick={() => onRouteChange('login')}>Log In</p>
+                <p className="text-link link pointer " onClick={() => onRouteChange('register')}>Register</p>
             </nav>
         );
     }
     
     return (
         <nav 
-            className="bar fixed top-0 left-0 w-100">
+            className="bar fixed top-0 left-0 w-100 z-5">
             {/* // LOGO */}
             <img src="../src/assets/logosvg.svg" alt="logo" className="logo"></img>
             <div 
@@ -83,7 +83,7 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 {isSignedIn ? (
                     <>
-                        <p className="f3 link dim black underline pa3 pointer ma0" onClick={() => onRouteChange('logout')}>Log Out</p>
+                        <p className="f3 link dim black pa3 pointer ma0" onClick={() => onRouteChange('logout')}>Log Out</p>
                         {/* user av */}
                         <img
                             className="br-100 shadow-1 ml3 mr3 pointer"

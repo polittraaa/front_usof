@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 
 import Login from './components/Login/Login'
-import Register from './components/Registerx/Register'
+import Register from './components/Register/Register'
 // import VerifyEmail from './components/VerifyEmail/VerifyEmail'
 // import PasswordReset from './components/PasswordReset/PasswordReset'
 
 import Navigation from './components/Navigation/Navigation'
 import LeftSidebar from './components/LeftSidebar/LeftSidebar'
-// import RightSidebar from './components/RightSidebar/RightSidebar'
-// import Content from './components/Content/Content'
+import RightSidebar from './components/RightSidebar/RightSidebar'
+import Content from './components/Content/Content'
 // import PostDetail from './components/PostDetail/PostDetail'
 
 import './App.css'
@@ -48,7 +48,7 @@ function App() {
   const authRoutes = ['login', 'register', 'verify-email', 'password-reset'];
 
   const routes = { 
-    // home: <Content onRouteChange={onRouteChange} />,
+    home: <Content onRouteChange={onRouteChange} />,
     login: <Login onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     register: <Register onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     // 'verify-email': <VerifyEmail onRouteChange={onRouteChange} />, 
@@ -71,7 +71,7 @@ function App() {
         {!authRoutes.includes(route) && (
           <>
             <LeftSidebar onRouteChange={onRouteChange} />
-            {/* <RightSidebar onRouteChange={onRouteChange} /> */}
+            <RightSidebar onRouteChange={onRouteChange} />
           </>
         )}
         <div style={{ flex: 1 }}>

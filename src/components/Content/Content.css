@@ -1,0 +1,17 @@
+.main-content{
+    margin-top: 5rem;
+    padding-bottom: 5rem;
+    margin-left: 20%;
+    margin-right: 25%;
+    min-height: 100vh;
+    overflow-y: auto;
+    background-color: blue;
+    width: 100vh;
+}
+.loader-container{
+
+}
+
+.post-list{
+
+}

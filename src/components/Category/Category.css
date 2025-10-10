@@ -1,12 +1,13 @@
 .cat {
     background-color: rgb(217, 168, 108);
-    margin-bottom: 1rem;
-    border: 1.6px solid rgb(75, 83, 32);
-    border-radius: 9999px;
+    margin-bottom: 0.5rem;
+    border: 1.6px solid rgb(83, 72, 32);
+    border-radius: 99px;
 }
 
 .cat-name {
-    padding: 8px 32px;
+    padding: 0.1em 0.5em;
     text-align: center;
-    font-size: 36px;
+    font-size: clamp(0.7rem, 1.5vw, 1.5rem);
+    margin: 2px;
 }
