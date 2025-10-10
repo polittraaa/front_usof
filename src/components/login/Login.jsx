@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import './Login.css'
 
 function Login({ onRouteChange }) {
   const [logInEmail, setLogInEmail] = useState('');
@@ -90,9 +91,7 @@ function Login({ onRouteChange }) {
 
   return (
     <div
-      ref={containerRef}
-      className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4"
-    >
+      ref={containerRef} className="login-container">
       <div className={`transition-all duration-500 ease-in-out ${isResetting ? 'rotate-y-180' : ''}`}>
         {/* LOGIN FORM */}
         <article
@@ -102,14 +101,13 @@ function Login({ onRouteChange }) {
           }`}
         >
           <main>
-            <h1 className="text-3xl font-semibold mb-6 text-gray-800">Log In</h1>
-            <div className="space-y-4">
+            <h1>Log In</h1>
+            <div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Login <span className="text-red-500">*</span>
+                <label>
+                  Login <span>*</span>
                 </label>
                 <input
-                  className="mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="text"
                   name="login"
                   id="login"
@@ -119,11 +117,10 @@ function Login({ onRouteChange }) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Email <span className="text-red-500">*</span>
+                <label>
+                  Email <span>*</span>
                 </label>
                 <input
-                  className="mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="text"
                   name="email"
                   id="email"
@@ -133,11 +130,10 @@ function Login({ onRouteChange }) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Password <span className="text-red-500">*</span>
+                <label>
+                  Password <span>*</span>
                 </label>
                 <input
-                  className="mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="password"
                   name="password"
                   id="password"
@@ -149,20 +145,17 @@ function Login({ onRouteChange }) {
 
             <button
               onClick={onSubmitLogIn}
-              className="mt-6 w-full bg-blue-600 text-white font-medium py-2 rounded-md hover:bg-blue-700 transition-colors"
             >
               Log In
             </button>
 
-            <div className="mt-4 text-center text-sm">
+            <div>
               <p
-                className="text-blue-600 hover:underline cursor-pointer"
                 onClick={() => onRouteChange('register')}
               >
                 Register
               </p>
               <p
-                className="text-blue-600 hover:underline cursor-pointer mt-1"
                 onClick={() => {
                   setIsResetting(true);
                   setError('');
@@ -183,14 +176,13 @@ function Login({ onRouteChange }) {
           }`}
         >
           <main>
-            <h1 className="text-3xl font-semibold mb-6 text-gray-800">Reset Password</h1>
-            <div className="space-y-4">
+            <h1>Reset Password</h1>
+            <div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label>
                   Email
                 </label>
                 <input
-                  className="mt-1 block w-full rounded-md border border-gray-300 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   type="email"
                   name="reset-email"
                   id="reset-email"
@@ -202,13 +194,11 @@ function Login({ onRouteChange }) {
 
             <button
               onClick={onSubmitPasswordReset}
-              className="mt-6 w-full bg-blue-600 text-white font-medium py-2 rounded-md hover:bg-blue-700 transition-colors"
             >
               Send Reset Link
             </button>
 
             <p
-              className="text-center text-blue-600 hover:underline cursor-pointer mt-3"
               onClick={() => {
                 setIsResetting(false);
                 setError('');
@@ -222,13 +212,13 @@ function Login({ onRouteChange }) {
       </div>
 
       {error && (
-        <p className="mt-4 text-red-600 font-semibold">
+        <p className='error-message'>
           &#10006; {error}
         </p>
       )}
 
       {message && (
-        <p className="mt-4 text-green-600 font-semibold">
+        <p className='success-message'>
           &#10004; {message}
         </p>
       )}

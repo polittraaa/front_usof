@@ -98,7 +98,7 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
                 ) : (
                     // log bar
                     <>
-                        <p className="f3 link dim black pa3 pointer ma1" onClick={() => onRouteChange('login')}>Log In</p>
+                        <p className="f3 link dim pink pa3 pointer ma1" onClick={() => onRouteChange('login')}>Log In</p>
                         <p className="f3 link dim black pa3 pointer ma1" onClick={() => onRouteChange('register')}>Register</p>
                     </>
                 )}
