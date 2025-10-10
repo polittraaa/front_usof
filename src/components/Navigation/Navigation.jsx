@@ -37,7 +37,7 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
     //return home
     if (route === 'login' || route === 'register' || route === 'verify-email' || route === 'password-reset') {
         return (
-            <nav className="bb b--light-gray bg-white pa2 fixed top-0 left-0 w-100 z-5" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <nav className="bar fixed top-0 left-0 w-100 z-5">
                 <p className="f3 link dim black underline pa3 pointer ma0" onClick={() => onRouteChange('home')}>Home</p>
                 <p className="f3 link dim black underline pa3 pointer ma0" onClick={() => onRouteChange('login')}>Log In</p>
                 <p className="f3 link dim black underline pa3 pointer ma0 " onClick={() => onRouteChange('register')}>Register</p>
@@ -47,7 +47,7 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
     
     return (
         <nav 
-            className=" bar bb b--light-gray pa2 fixed top-0 left-0 w-100 z-5" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            className="bar fixed top-0 left-0 w-100">
             {/* // LOGO */}
             <img src="../src/assets/logosvg.svg" alt="logo" className="logo"></img>
             <div 

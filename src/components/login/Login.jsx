@@ -92,11 +92,11 @@ function Login({ onRouteChange }) {
   return (
     <div
       ref={containerRef} className="login-container">
-      <div className={`transition-all duration-500 ease-in-out ${isResetting ? 'rotate-y-180' : ''}`}>
+      <div>
         {/* LOGIN FORM */}
         <article
           ref={loginRef}
-          className={`bg-white rounded-2xl shadow-lg p-8 w-full max-w-md transition-all duration-500 ${
+          className={`${
             isResetting ? 'hidden' : 'block'
           }`}
         >
@@ -171,9 +171,7 @@ function Login({ onRouteChange }) {
         {/* RESET FORM */}
         <article
           ref={resetRef}
-          className={`bg-white rounded-2xl shadow-lg p-8 w-full max-w-md transition-all duration-500 ${
-            isResetting ? 'block' : 'hidden'
-          }`}
+          className={`${ isResetting ? 'block' : 'hidden'}`}
         >
           <main>
             <h1>Reset Password</h1>

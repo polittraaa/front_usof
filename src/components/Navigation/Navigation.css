@@ -1,5 +1,8 @@
 .bar{
     background-color: #91450D;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
 }
 
 .logo{
