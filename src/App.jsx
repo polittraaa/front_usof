@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import Login from './components/Login/Login'
-import Register from './components/Register/Register'
+import Register from './components/Registerx/Register'
 // import VerifyEmail from './components/VerifyEmail/VerifyEmail'
 // import PasswordReset from './components/PasswordReset/PasswordReset'
 
