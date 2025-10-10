@@ -6,7 +6,7 @@ import Register from './components/Registerx/Register'
 // import PasswordReset from './components/PasswordReset/PasswordReset'
 
 import Navigation from './components/Navigation/Navigation'
-// import LeftSidebar from './components/LeftSidebar/LeftSidebar'
+import LeftSidebar from './components/LeftSidebar/LeftSidebar'
 // import RightSidebar from './components/RightSidebar/RightSidebar'
 // import Content from './components/Content/Content'
 // import PostDetail from './components/PostDetail/PostDetail'
@@ -68,12 +68,12 @@ function App() {
       <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} route={route} userId={userId} />
 
       <div className="main-content" style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-        {/* {!authRoutes.includes(route) && (
+        {!authRoutes.includes(route) && (
           <>
             <LeftSidebar onRouteChange={onRouteChange} />
-            <RightSidebar onRouteChange={onRouteChange} />
+            {/* <RightSidebar onRouteChange={onRouteChange} /> */}
           </>
-        )} */}
+        )}
         <div style={{ flex: 1 }}>
           {mainContent}
         </div>
