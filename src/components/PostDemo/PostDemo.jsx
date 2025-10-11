@@ -57,7 +57,7 @@ function PostDemo({ post, onOpen }) {
     }
 
     const createdAt = formatTime(post.created_at);
-    const avatar = `http://localhost:3000/${author?.profile_picture}`;
+    const avatar = `http://localhost:3001/${author?.profile_picture}`;
     const username = `@${author?.login}`;
 
     const likes = post.likes_count || 0;    
