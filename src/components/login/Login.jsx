@@ -67,13 +67,17 @@ function Login({ onRouteChange }) {
       });
 
       const data = await response.json();
+      console.log(data);
+      
       if (data.error) {
         setError(data.error);
       } else {
         setMessage('Password reset email sent');
       }
-    } catch {
+    } catch (err) {
       setError('Server error. Please try again later.');
+      console.log(err);
+      
     }
   }
 

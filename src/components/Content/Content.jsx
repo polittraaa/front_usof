@@ -21,13 +21,14 @@ function Content({ onRouteChange }) {
                 const posts = Array.isArray(data.posts.posts) ? data.posts.posts : [];
 
                 const postsWithCategories = await Promise.all(posts.map(async post => {
-                    const catRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}/categories`);
+                    const catRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`);
                     const catData = await catRes.json();
-                    console.log('catData',catData)
+                    //console.log('catData',catData)
 
                     const comRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}/comments`);
                     const comData = await comRes.json();
-                     console.log('comData',comData)
+                    //console.log('comData',comData)
+
 
                     const commentsCount = Array.isArray(comData) ? comData.length : (comData.comments?.length || 0);
                     console.log('posts',...posts)
