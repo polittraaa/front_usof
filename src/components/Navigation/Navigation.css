@@ -4,6 +4,7 @@
     align-items: center; 
     justify-content: space-between;
     height: 5em;
+    padding-right: 30px;
 }
 
 .logo{
@@ -16,4 +17,33 @@
 }
 .text-link.on-hover{
     color: #ffc847;
+}
+
+.logtext {
+    margin: 0;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.logbox {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #e8b35a 0%, #d28a2e 100%);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.7rem;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(145, 87, 21, 0.3);
+    transition: all 0.25s ease;
+}
+
+.logbox:hover {
+    background: linear-gradient(135deg, #f0b956 0%, #d38b2b 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(145, 87, 21, 0.35);
 }

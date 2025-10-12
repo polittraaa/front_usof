@@ -80,7 +80,7 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
                 </div>
             </form>
             
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 {isSignedIn ? (
                     <>
                         <p className="f3 link dim black pa3 pointer ma0" onClick={() => onRouteChange('logout')}>Log Out</p>
@@ -98,8 +98,13 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
                 ) : (
                     // log bar
                     <>
-                        <p className="f3 link dim pink pa3 pointer ma1" onClick={() => onRouteChange('login')}>Log In</p>
-                        <p className="f3 link dim black pa3 pointer ma1" onClick={() => onRouteChange('register')}>Register</p>
+                        <div className="logbox">
+                            <p className="logtext" onClick={() => onRouteChange('login')}>Log In</p>
+                        </div>
+                        <div className="logbox">
+                            <p className="logtext" onClick={() => onRouteChange('register')}>Register</p>
+                        </div>
+                        
                     </>
                 )}
             </div>
