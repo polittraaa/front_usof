@@ -1,0 +1,13 @@
+.right-bar{
+    width: 20%; 
+    height: 100%;
+    position: fixed;
+    right:0; 
+    top: 5em; 
+    overflow: auto;
+
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(193 124 74);
+    background-color: #faf3e0;
+}

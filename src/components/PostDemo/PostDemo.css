@@ -1,0 +1,75 @@
+.demo {
+    padding: 1rem;
+    margin: 2em;
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+    background-color: #fff;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.demo.custom-hover:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #555;
+}
+
+.post-author {
+    font-weight: 600;
+}
+
+.middle-dot {
+    margin: 0 0.5rem;
+}
+
+.post-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0.25rem 0;
+}
+
+.post-excerpt {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.post-stats {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.stat-item i {
+    margin-right: 0.3rem;
+}
+
+.category-badge {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+}

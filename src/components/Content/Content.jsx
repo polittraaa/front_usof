@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import PostDemo from '../PostDemo/PostDemo';
+import './Content.css'
 
 function Content({ onRouteChange }) {
     const [posts, setPosts] = useState([]);
@@ -19,19 +20,18 @@ function Content({ onRouteChange }) {
                 const data = await res.json();
                
                 const posts = Array.isArray(data.posts.posts) ? data.posts.posts : [];
-                console.log(posts);
 
                 const postsWithCategories = await Promise.all(posts.map(async post => {
-                    const catRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`);
+                    const catRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}/categories`);
                     const catData = await catRes.json();
+                    console.log('catData',catData)
 
-                    // console.log(catData)
-                    const comRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`);
+                    const comRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}/comments`);
                     const comData = await comRes.json();
-                    // console.log(comData)
+                    console.log('comData',comData)
 
                     const commentsCount = Array.isArray(comData) ? comData.length : (comData.comments?.length || 0);
-
+                    console.log('one post', post)
                     return {
                         ...post,
                         categories: catData.categories || [],
@@ -40,7 +40,7 @@ function Content({ onRouteChange }) {
                 }));
                 if (!cancelled) {
                     setPosts(postsWithCategories);
-                    setTotalPages(data.totalPages)
+                    setTotalPages(data.page_count)
                 }
             } catch (err) {
                 if (!cancelled) setError(err.message);
@@ -62,7 +62,7 @@ function Content({ onRouteChange }) {
     
     return (
         <div 
-            className="main-content"
+            className="main-content mr3"
         >
             {loading && !error && (
                 <div className="loader-container">
@@ -76,17 +76,17 @@ function Content({ onRouteChange }) {
 
             <div className="post-list">
                 {visible.map(post => (
-                    <PostDemo key={post.id} post={post} onOpen={openPost} />
+                    <PostDemo key={post.post_id} post={post} onOpen={openPost} />
                 ))}
             </div>
 
             {!loading && !error && visible.length > 0 && (
-                <div style={{ marginTop: '1rem' }}>
-                    <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>
+                <div className="pagin mt1">
+                    <button className="arrow" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>
                         ←
                         </button>
                     <span style={{ margin: '0 0.5rem' }}>page {page} from {totalPages}</span>
-                    <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>
+                    <button className="arrow" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>
                         →
                     </button>
                 </div>

@@ -4,12 +4,15 @@ import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import ConfirmEmail from './components/ConfirmEmail/ConfirmEmail'
 import PasswordReset from './components/PasswordReset/PasswordReset'
+// import VerifyEmail from './components/VerifyEmail/VerifyEmail'
+// import PasswordReset from './components/PasswordReset/PasswordReset'
+import About from './components/About/About'
 
 import Navigation from './components/Navigation/Navigation'
 import LeftSidebar from './components/LeftSidebar/LeftSidebar'
 import RightSidebar from './components/RightSidebar/RightSidebar'
 import Content from './components/Content/Content'
-// import PostDetail from './components/PostDetail/PostDetail'
+import PostDemo from './components/PostDemo/PostDemo'
 
 import './App.css'
 
@@ -52,13 +55,16 @@ function App() {
     login: <Login onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     register: <Register onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     'verify-email': <ConfirmEmail onRouteChange={onRouteChange} />, 
-    'password-reset': <PasswordReset token={passwordResetToken} />
+    'password-reset': <PasswordReset token={passwordResetToken} />,
+    about: <About onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />,
+    // 'verify-email': <VerifyEmail onRouteChange={onRouteChange} />, 
+    // 'password-reset': <PasswordReset token={passwordResetToken} />
   };
 
   let mainContent;
   if (route.startsWith('post:')) {
     const postId = route.split(':')[1];
-    mainContent = <PostDetail postId={postId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} userId={userId} />;
+    mainContent = <PostDemo postId={postId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} userId={userId} />;
   } else {
     mainContent = routes[route] || routes.home;
   }

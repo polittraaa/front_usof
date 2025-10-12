@@ -17,7 +17,7 @@ function LeftSidebar({ onRouteChange }) {
 
     return (
         <div 
-            className="left-sidebar-container w-20 vh-100 fixed left-0 top-0 overflow-auto" 
+            className="left-sidebar-container" 
         >
             <div className='categories-list'>
                 {categories.map(category => (

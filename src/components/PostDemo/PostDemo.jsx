@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-// import './PostDemo.css'
+import { useEffect, useState } from 'react';
+import './PostDemo.css';
 
 function PostDemo({ post, onOpen }) {
     const [author, setAuthor] = useState(null);
@@ -14,20 +14,16 @@ function PostDemo({ post, onOpen }) {
         if (s.length <= n) return s;
 
         let cut = s.slice(0, n);
-
         const lastSpace = cut.lastIndexOf(' ');
-
-        if (lastSpace > 0) {
-            cut = cut.slice(0, lastSpace);
-        }
+        if (lastSpace > 0) cut = cut.slice(0, lastSpace);
 
         return cut.trim() + '...';
     }
 
     useEffect(() => {
+        console.log('what is post.author_id in demo', post.author_id)
         if (!post.author_id) return;
         let cancelled = false;
-
         async function loadAuthor() {
             try {
                 const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${post.author_id}`);
@@ -41,8 +37,9 @@ function PostDemo({ post, onOpen }) {
 
         loadAuthor();
         return () => { cancelled = true };
-    }, [post.author_id]);
+    },[post.author_id]);
 
+    //date
     function formatTime(timestamp) {
         const diff = Date.now() - new Date(timestamp).getTime();
         const seconds = Math.floor(diff / 1000);
@@ -56,25 +53,20 @@ function PostDemo({ post, onOpen }) {
         return new Date(timestamp).toLocaleDateString();
     }
 
-    const createdAt = formatTime(post.created_at);
-    const avatar = `http://localhost:3001/${author?.profile_picture}`;
+    const createdAt = formatTime(post.publish_date);
+    console.log('timestamp', createdAt);
+    const avatar = `http://localhost:3001/${author?.picture}`;
+    console.log('what is the avatar: ', avatar)
     const username = `@${author?.login}`;
 
-    const likes = post.likes_count || 0;    
-    const dislikes = post.dislikes_count || 0;
+    const likes = post.likes_count || 0;
+    const dislikes = post.dislikes_count || 0; 
     const rating = post.rating || 0;
     const commentsCount = post.commentsCount || 0;
-    
+
     return (
-        <div 
-            className="bg-white pointer custom-hover tl pa3 post-preview"
-            style={{
-                margin: '0 2rem',
-                padding: '1rem 1rem',
-                borderBottom: '1px solid #ddd'
-            }}
-        >
-            <div className="post-header pointer">
+        <div className="demo custom-hover tl ">
+            <div className="post-header">
                 <img src={avatar} alt={username} className="post-avatar" />
                 <div className="post-meta">
                     <span className="post-author">{username}</span>
@@ -94,40 +86,28 @@ function PostDemo({ post, onOpen }) {
 
             <div style={{ marginTop: '.5rem', marginBottom: '.5rem', display: 'flex', gap: '.5rem', alignItems: 'center' }}>
                 {(post.categories && post.categories.length > 0 ? post.categories : [{ title: 'no-category', id: 'none' }]).map(cat => (
-                    <span key={cat.id} style={{ fontSize: '.8rem', padding: '.2rem .5rem', border: '1px solid #ddd', borderRadius: '12px' }}>
-                        {cat.title}
-                    </span>
+                    <span key={cat.id} className="category-badge">{cat.title}</span>
                 ))}
             </div>
 
-            <div
-                className="post-stats"
-                style={{
-                    marginTop: '0.8rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '1.2rem',
-                    fontSize: '.9rem',
-                    color: '#666'
-                }}
-            >
+            <div className="post-stats">
                 <div className="stat-item" title="Likes">
-                    <i className="fa-solid fa-thumbs-up" style={{ color: '#28a745', marginRight: '.3rem' }}></i>
+                    <i className="fa-solid fa-thumbs-up" style={{ color: '#216805ff' }}></i>
                     {likes}
                 </div>
 
                 <div className="stat-item" title="Dislikes">
-                    <i className="fa-solid fa-thumbs-down" style={{ color: '#dc3545', marginRight: '.3rem' }}></i>
+                    <i className="fa-solid fa-thumbs-down" style={{ color: '#dc3545' }}></i>
                     {dislikes}
                 </div>
 
                 <div className="stat-item" title="Rating">
-                    <i className="fa-solid fa-star" style={{ color: '#f5c518', marginRight: '.3rem' }}></i>
+                    <i className="fa-solid fa-star" style={{ color: '#f5c518' }}></i>
                     {rating}
                 </div>
 
                 <div className="stat-item" title="Comments">
-                    <i className="fa-solid fa-comment" style={{ color: '#007bff', marginRight: '.3rem' }}></i>
+                    <i className="fa-solid fa-comment" style={{ color: '#1f2efaff' }}></i>
                     {commentsCount}
                 </div>
             </div>
