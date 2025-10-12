@@ -21,9 +21,9 @@ function PostDemo({ post, onOpen }) {
     }
 
     useEffect(() => {
+        console.log('what is post.author_id in demo', post.author_id)
         if (!post.author_id) return;
         let cancelled = false;
-
         async function loadAuthor() {
             try {
                 const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${post.author_id}`);
@@ -37,8 +37,9 @@ function PostDemo({ post, onOpen }) {
 
         loadAuthor();
         return () => { cancelled = true };
-    }, [post.author_id]);
+    },[post.author_id]);
 
+    //date
     function formatTime(timestamp) {
         const diff = Date.now() - new Date(timestamp).getTime();
         const seconds = Math.floor(diff / 1000);
@@ -52,17 +53,19 @@ function PostDemo({ post, onOpen }) {
         return new Date(timestamp).toLocaleDateString();
     }
 
-    const createdAt = formatTime(post.created_at);
-    const avatar = `http://localhost:3001/${author?.profile_picture}`;
+    const createdAt = formatTime(post.publish_date);
+    console.log('timestamp', createdAt);
+    const avatar = `http://localhost:3001/${author?.picture}`;
+    console.log('what is the avatar: ', avatar)
     const username = `@${author?.login}`;
 
     const likes = post.likes_count || 0;
-    const dislikes = post.dislikes_count || 0;
+    const dislikes = post.dislikes_count || 0; 
     const rating = post.rating || 0;
     const commentsCount = post.commentsCount || 0;
 
     return (
-        <div className="demo custom-hover tl">
+        <div className="demo custom-hover tl ">
             <div className="post-header">
                 <img src={avatar} alt={username} className="post-avatar" />
                 <div className="post-meta">
