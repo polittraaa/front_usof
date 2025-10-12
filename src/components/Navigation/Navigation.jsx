@@ -37,17 +37,20 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
     //return home
     if (route === 'login' || route === 'register' || route === 'verify-email' || route === 'password-reset') {
         return (
-            <nav className="bar fixed top-0 left-0 w-100 z-5">
-                <p className="text-link link pointer" onClick={() => onRouteChange('home')}>Home</p>
-                <p className="text-link link pointer" onClick={() => onRouteChange('login')}>Log In</p>
-                <p className="text-link link pointer " onClick={() => onRouteChange('register')}>Register</p>
+            <nav className="bar">
+                <img src="../src/assets/logosvg.svg" alt="logo" className="logo"></img>
+                <div className="links">
+                    <p className="logtext" onClick={() => onRouteChange('home')}>Home</p>
+                    <p className="logtext" onClick={() => onRouteChange('login')}>Log In</p>
+                    <p className="logtext" onClick={() => onRouteChange('register')}>Register</p>
+                </div>
             </nav>
         );
     }
     
     return (
         <nav 
-            className="bar fixed top-0 left-0 w-100 z-5">
+            className="bar">
             {/* // LOGO */}
             <img src="../src/assets/logosvg.svg" alt="logo" className="logo"></img>
             <div 

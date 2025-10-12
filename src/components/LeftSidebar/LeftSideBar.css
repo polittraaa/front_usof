@@ -8,11 +8,15 @@
     margin-top: 5rem;
     margin-right: 0;
     min-height: 100vh;
-    overflow-y: auto;
     border-right-width: 1px;
     border-right-style: solid;
-    border-right-color: rgb(193 124 74 / var(--tw-border-opacity, 1));
+    border-right-color: rgb(193 124 74);
     background-color: #faf3e0;
+    width: 20%; 
+    position: fixed; 
+    left: 0; 
+    top: 0; 
+    overflow: auto;
 }
 
 .categories-list {
