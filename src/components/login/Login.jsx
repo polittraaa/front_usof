@@ -38,15 +38,20 @@ function Login({ onRouteChange }) {
           password: logInPassword,
         }),
       });
-
-      const user = await response.json();
-      if (user.id) {
+      
+      const data = await response.json();
+      console.log(data);
+      
+      
+      if (data.user.user_id) {
         setError('');
         onRouteChange('home');
       } else {
         setError('Incorrect login or email or password');
       }
-    } catch {
+    } catch (e) {
+      console.log(e);
+      
       setError('Server error. Please try again later.');
     }
   }
@@ -67,7 +72,6 @@ function Login({ onRouteChange }) {
       });
 
       const data = await response.json();
-      console.log(data);
       
       if (data.error) {
         setError(data.error);

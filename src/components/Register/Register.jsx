@@ -41,17 +41,19 @@ function Register({ onRouteChange }) {
           login: logIn,
           password: logInPassword,
           password_confirm: logInPasswordConfirm,
-          full_name: fullName,
+          name: fullName,
         }),
       });
 
-      const user = await response.json();
-      if (user.id) {
+      const data = await response.json();
+      console.log(data);
+      
+      if (data) {
         setError('');
         setMessage('Confirmation email has been sent.');
         onRouteChange('login');
       } else {
-        setError(user);
+        setError(data);
       }
     } catch {
       setError('Server error. Please try again later.');
