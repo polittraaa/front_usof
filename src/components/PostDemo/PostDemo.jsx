@@ -76,15 +76,15 @@ function PostDemo({ post, onOpen }) {
             </div>
 
             <a
-                href={`/posts/${post.id}`}
-                onClick={(e) => { e.preventDefault(); onOpen(post.id); }}
+                href={`/posts/${post.post_id}`}// id or post_id
+                onClick={(e) => { e.preventDefault(); onOpen(post.post_id); }}
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
                 <h3 className="post-title">{post.title}</h3>
                 <p className="post-excerpt">{excerpt(post.content)}</p>
             </a>
 
-            <div style={{ marginTop: '.5rem', marginBottom: '.5rem', display: 'flex', gap: '.5rem', alignItems: 'center' }}>
+            <div className="" style={{ marginTop: '.5rem', marginBottom: '.5rem', display: 'flex', gap: '.5rem', alignItems: 'center' }}>
                 {(post.categories && post.categories.length > 0 ? post.categories : [{ title: 'no-category', id: 'none' }]).map(cat => (
                     <span key={cat.id} className="category-badge">{cat.title}</span>
                 ))}

@@ -10,7 +10,7 @@ import Navigation from './components/Navigation/Navigation'
 import LeftSidebar from './components/LeftSidebar/LeftSidebar'
 import RightSidebar from './components/RightSidebar/RightSidebar'
 import Content from './components/Content/Content'
-import PostDemo from './components/PostDemo/PostDemo'
+import Post from './components/Post/Post'
 
 import './App.css'
 
@@ -60,7 +60,7 @@ function App() {
   let mainContent;
   if (route.startsWith('post:')) {
     const postId = route.split(':')[1];
-    mainContent = <PostDemo postId={postId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} userId={userId} />;
+    mainContent = <Post postId={postId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} userId={userId} />;
   } else {
     mainContent = routes[route] || routes.home;
   }
