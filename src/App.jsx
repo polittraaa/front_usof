@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'
+import ConfirmEmail from './components/ConfirmEmail/ConfirmEmail'
+import PasswordReset from './components/PasswordReset/PasswordReset'
 // import VerifyEmail from './components/VerifyEmail/VerifyEmail'
 // import PasswordReset from './components/PasswordReset/PasswordReset'
 import About from './components/About/About'
@@ -22,8 +24,8 @@ function App() {
 
   useEffect(() => {
     const path = window.location.pathname;
-    if (path.startsWith("/password-reset/")) {
-      const token = path.split("/")[2];
+    if (path.startsWith("/api/auth/password-reset/")) {
+      const token = path.split("/")[4];
       setPasswordResetToken(token);
       setRoute("password-reset");
     }
@@ -52,6 +54,8 @@ function App() {
     home: <Content onRouteChange={onRouteChange} />,
     login: <Login onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     register: <Register onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
+    'verify-email': <ConfirmEmail onRouteChange={onRouteChange} />, 
+    'password-reset': <PasswordReset token={passwordResetToken} />,
     about: <About onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />,
     // 'verify-email': <VerifyEmail onRouteChange={onRouteChange} />, 
     // 'password-reset': <PasswordReset token={passwordResetToken} />
