@@ -4,8 +4,6 @@ import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import ConfirmEmail from './components/ConfirmEmail/ConfirmEmail'
 import PasswordReset from './components/PasswordReset/PasswordReset'
-// import VerifyEmail from './components/VerifyEmail/VerifyEmail'
-// import PasswordReset from './components/PasswordReset/PasswordReset'
 import About from './components/About/About'
 
 import Navigation from './components/Navigation/Navigation'
@@ -13,6 +11,7 @@ import LeftSidebar from './components/LeftSidebar/LeftSidebar'
 import RightSidebar from './components/RightSidebar/RightSidebar'
 import Content from './components/Content/Content'
 import Post from './components/Post/Post'
+import Footer from './components/Footer/Footer'
 
 import './App.css'
 
@@ -57,8 +56,6 @@ function App() {
     'verify-email': <ConfirmEmail onRouteChange={onRouteChange} />, 
     'password-reset': <PasswordReset token={passwordResetToken} />,
     about: <About onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />,
-    // 'verify-email': <VerifyEmail onRouteChange={onRouteChange} />, 
-    // 'password-reset': <PasswordReset token={passwordResetToken} />
   };
 
   let mainContent;
@@ -73,17 +70,18 @@ function App() {
     <>
       <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} route={route} userId={userId} />
 
-      <div className="main-content" style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+      <div className="main-content">
         {!authRoutes.includes(route) && (
-          <>
             <LeftSidebar onRouteChange={onRouteChange} />
-            <RightSidebar onRouteChange={onRouteChange} />
-          </>
         )}
         <div style={{ flex: 1 }}>
           {mainContent}
         </div>
+        {!authRoutes.includes(route) && (
+          <RightSidebar onRouteChange={onRouteChange} />
+        )}
       </div>
+     <Footer onRouteChange={onRouteChange} />
     </>
   )
 }

@@ -1,11 +1,24 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-// import './index.css'
+
+//redux
+import { configureStore } from "@reduxjs/toolkit";
+import postsReducer from "./postStore/PostFetch";
+import { Provider } from "react-redux";
+
+const store = configureStore({
+  reducer: {
+    posts: postsReducer,
+  },
+});
+
 import App from './App.jsx'
 import 'tachyons'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>,
   </StrictMode>,
 )

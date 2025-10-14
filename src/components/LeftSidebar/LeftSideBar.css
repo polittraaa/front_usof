@@ -8,10 +8,8 @@
     margin-top: 5rem;
     margin-right: 0;
     min-height: 100vh;
-    border-right-width: 1px;
-    border-right-style: solid;
-    border-right-color: rgb(193 124 74);
-    background-color: #faf3e0;
+    border-right: 1px solid rgb(193 124 74);
+    background-color: #f7f1ea;
     width: 20%; 
     position: fixed; 
     left: 0; 
@@ -22,11 +20,11 @@
 .categories-list {
     margin-top: 1rem;
     margin-bottom: 1.5rem;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: rgb(193 124 74 / var(--tw-border-opacity, 1));
-
+    /* border-bottom: 1px solid  #285643; */
+    border-bottom: 1px solid rgb(193 124 74);
+    height: 20%;
     padding: 20px;
+    overflow: auto;
 }
 
 .left-sidebar-links-container {

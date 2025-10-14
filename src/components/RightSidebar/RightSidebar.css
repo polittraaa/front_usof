@@ -2,12 +2,12 @@
     width: 20%; 
     height: 100%;
     position: fixed;
-    right:0; 
-    top: 5em; 
+    right: 0;
+    top: 5em;
     overflow: auto;
-
-    border-left-width: 1px;
-    border-left-style: solid;
-    border-left-color: rgb(193 124 74);
-    background-color: #faf3e0;
+    border-left: 1px solid rgb(193 124 74);
+    background-color: #f7f1ea;
+    padding-top: 1rem;
+        z-index: 1;
+    min-height: 100vh;
 }

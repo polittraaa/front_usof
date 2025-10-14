@@ -6,6 +6,7 @@
     background-color: #fff;
     margin-bottom: 1rem;
     transition: box-shadow 0.2s ease-in-out;
+    width: 100%;
 }
 
 .demo.custom-hover:hover {
@@ -36,6 +37,7 @@
 
 .post-author {
     font-weight: 600;
+    padding: 1%;
 }
 
 .middle-dot {

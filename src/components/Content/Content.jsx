@@ -1,69 +1,39 @@
 import { useEffect, useState } from 'react';
 import PostDemo from '../PostDemo/PostDemo';
-import './Content.css'
+import './Content.css';
+
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts } from "/src/postStore/PostFetch.js";
 
 function Content({ onRouteChange }) {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const dispatch = useDispatch();
+
+    const {items: posts, status, error, totalPages } = useSelector(
+        (state) => state.posts
+    );
+
     const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const PAGE_SIZE = 10;
+    const pageSize = 10;
 
     useEffect(() => {
-        let cancelled = false;
-        async function load() {
-            setLoading(true);
-            try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/posts`);
-                if (!res.ok) throw new Error('Error loading posts: ' + res.status);
-                const data = await res.json();
-               
-                const posts = Array.isArray(data.posts.posts) ? data.posts.posts : [];
-
-                const postsWithCategories = await Promise.all(posts.map(async post => {
-                    const catRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}/categories`);
-                    const catData = await catRes.json();
-                    console.log('catData',catData)
-
-                    const comRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.id}/comments`);
-                    const comData = await comRes.json();
-                    console.log('comData',comData)
-
-                    const commentsCount = Array.isArray(comData) ? comData.length : (comData.comments?.length || 0);
-                    console.log('one post', post)
-                    return {
-                        ...post,
-                        categories: catData.categories || [],
-                        commentsCount
-                    };                    
-                }));
-                if (!cancelled) {
-                    setPosts(postsWithCategories);
-                    setTotalPages(data.page_count)
-                }
-            } catch (err) {
-                if (!cancelled) setError(err.message);
-            } finally {
-                if (!cancelled) setLoading(false);
-            }
+        if (status === 'idle') {
+            dispatch(fetchPosts());
         }
-        load();
-        return () => { cancelled = true; }
-    }, []);    
+    }, [status, dispatch]);
+    
+    //pagination    
+    const visible = posts.slice((page - 1) * pageSize, page * pageSize);
+
 
     function openPost(id) {
         // link apdate
         window.history.pushState({}, '', `/posts/${id}`);
         onRouteChange(`post:${id}`);
     }
+    const loading = status === "loading";
 
-    const visible = posts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
-    
     return (
-        <div 
-            className="main-content mr3"
-        >
+        <div className="main-content">
             {loading && !error && (
                 <div className="loader-container">
                     <div className="loader"></div>
@@ -73,15 +43,18 @@ function Content({ onRouteChange }) {
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
             {!loading && !error && visible.length === 0 && <p>There are no posts</p>}
-
+            <div className="sorting">
+                <span className="mr3">New</span>
+                <span className="mr3">Rating</span>
+            </div>
             <div className="post-list">
                 {visible.map(post => (
-                    <PostDemo key={post.post_id} post={post} onOpen={openPost} />
+                    <PostDemo key={post.id} post={post} onOpen={openPost} />
                 ))}
             </div>
 
             {!loading && !error && visible.length > 0 && (
-                <div className="pagin mt1">
+                <div className="pagin">
                     <button className="arrow" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>
                         ←
                         </button>

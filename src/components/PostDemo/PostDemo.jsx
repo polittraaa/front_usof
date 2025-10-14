@@ -21,7 +21,6 @@ function PostDemo({ post, onOpen }) {
     }
 
     useEffect(() => {
-        console.log('what is post.author_id in demo', post.author_id)
         if (!post.author_id) return;
         let cancelled = false;
         async function loadAuthor() {

@@ -3,7 +3,7 @@
     top: 0; 
     left: 0;
     width: 100%;
-    background-color: #834108;
+    background-color: #1C2A1A;
     display: flex;
     align-items: center; 
     height: 5em;
@@ -28,11 +28,12 @@
     color: #FFF1E8;
 }
 .text-link.on-hover{
-    color: #ffc847;
+    color: #dc855f;
 }
 
 .logtext {
     margin: 0;
+    color: #fae6e6;
     text-align: center;
     font-size: 1.2em;
     font-weight: bold;
@@ -42,10 +43,10 @@
 .logbox {
     display: block;
     width: 100%;
-    background: linear-gradient(135deg, #e8b35a 0%, #d28a2e 100%);
+    background: linear-gradient(135deg, #e8a35a 0%, #cb7358 100%);
     border: none;
     border-radius: 10px;
-    color: #fff;
+    color: #f5e5e5;
     font-weight: 600;
     padding: 0.7rem;
     font-size: 1rem;
