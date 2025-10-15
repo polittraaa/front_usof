@@ -46,10 +46,10 @@ export default function About() {
 
         {/* Personal Info Section */}
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-2">About Me</h2>
+          <h2 className="text-2xl font-semibold text-gray-700 mb-2">Insperation</h2>
           <p className="italic text-gray-600">
             {/*  Add your name, background, and motivation here */}
-            [Your Name] — [A short personal introduction and what inspired you to build Usof.]
+            This projekt is a possibility learn and apply my skils in area of website dewelopment.  
           </p>
         </div>
 

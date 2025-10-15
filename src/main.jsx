@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 
 //redux
 import { configureStore } from "@reduxjs/toolkit";
-import postsReducer from "./postStore/PostFetch";
+import postsReducer from "./store/PostFetch";
 import { Provider } from "react-redux";
 
 const store = configureStore({

@@ -157,7 +157,7 @@ function Login({ onRouteChange }) {
               Log In
             </button>
 
-            <div>
+            {/* <div> */}
               <p
                 onClick={() => onRouteChange('register')}
               >
@@ -172,7 +172,7 @@ function Login({ onRouteChange }) {
               >
                 Forgot your password?
               </p>
-            </div>
+            {/* </div> */}
           </main>
         </article>
 

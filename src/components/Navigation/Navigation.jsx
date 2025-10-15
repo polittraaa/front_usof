@@ -35,7 +35,8 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
         
     }
     //return home
-    if (route === 'login' || route === 'register' || route === 'verify-email' || route === 'password-reset') {
+    // if (route === 'login' || route === 'register' || route === 'verify-email' || route === 'password-reset') {
+    if (route !== 'home') {
         return (
             <nav className="bar">
                 <img src="../src/assets/logosvg.svg" alt="logo" className="logo"></img>

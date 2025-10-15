@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Category from '../Category/Category';
 import './LeftSidebar.css'
 
 function LeftSidebar({ onRouteChange }) {
@@ -19,7 +18,7 @@ function LeftSidebar({ onRouteChange }) {
         <div 
             className="left-sidebar-container" 
         >
-            <div className='categories-list'>
+            {/* <div className='categories-list'>
                 {categories.map(category => (
                     <Category
                         key={category.category_id}
@@ -28,7 +27,7 @@ function LeftSidebar({ onRouteChange }) {
                         onClick={() => onRouteChange(`category-${category.category_id}`)}
                     />
                 ))}
-            </div>
+            </div> */}
 
             <div className='left-sidebar-links-container'>
                 <span 
@@ -43,6 +42,10 @@ function LeftSidebar({ onRouteChange }) {
                     className='left-sidebar-link'
                     onClick={() => onRouteChange('home')}
                 >Home</span>
+                 <span 
+                    className='left-sidebar-link'
+                    onClick={() => onRouteChange('categories')}
+                >Categories</span>
             </div>
         </div>
     );

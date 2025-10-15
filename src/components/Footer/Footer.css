@@ -8,14 +8,13 @@
 
 .footer-content {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     gap: 1.5rem;
 }
 
 /*Contact info*/
-.footer-contact {
+.contact {
     color: #fee7e7;
 }
 
@@ -26,13 +25,13 @@
 .footer-icons {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .icon-btn {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 9999px;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
     background-color: rgba(255, 255, 255, 0.1);
     display: grid;
     place-items: center;

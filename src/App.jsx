@@ -13,6 +13,10 @@ import Content from './components/Content/Content'
 import Post from './components/Post/Post'
 import Footer from './components/Footer/Footer'
 
+// import CreatePost from './components/CreatePost/CreatePost'
+
+// import Profile from './components/Profile/Profile'
+
 import './App.css'
 
 function App() {
@@ -56,6 +60,8 @@ function App() {
     'verify-email': <ConfirmEmail onRouteChange={onRouteChange} />, 
     'password-reset': <PasswordReset token={passwordResetToken} />,
     about: <About onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />,
+    // 'create-post': <CreatePost onRouteChange={onRouteChange} userId={userId} />,
+    // 'profile': <Profile userId={routeUserId} currentUserId={userId} onRouteChange={onRouteChange} />
   };
 
   let mainContent;
@@ -70,17 +76,18 @@ function App() {
     <>
       <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} route={route} userId={userId} />
 
-      <div className="main-content">
+      <div className="main" style={{ flex: 1 }}>
         {!authRoutes.includes(route) && (
             <LeftSidebar onRouteChange={onRouteChange} />
         )}
-        <div style={{ flex: 1 }}>
+        <div  className="main-content">
           {mainContent}
         </div>
         {!authRoutes.includes(route) && (
           <RightSidebar onRouteChange={onRouteChange} />
         )}
       </div>
+      
      <Footer onRouteChange={onRouteChange} />
     </>
   )

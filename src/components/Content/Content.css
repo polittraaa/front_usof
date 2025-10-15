@@ -1,4 +1,4 @@
-.main-content{
+.content-main{
     min-height: 100vh;
     overflow-y: auto;
     background-color: rgb(237, 237, 237);
@@ -7,6 +7,8 @@
     flex-direction: column;
     z-index: 1;
     margin-top: 5em;
+    justify-content: center;
+    align-items: center;
 }
 .loader-container{
     background-color: rgb(202, 13, 148);
@@ -15,10 +17,15 @@
 .post-list{
     padding: 2%;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .arrow{
     margin: 1em;
-    background-color: burlywood;
+    background: linear-gradient(135deg, #eda85eff 0%, #d6846bff 100%);
+    color: white;
+    border-radius: 3px;
     z-index: 6;
 }
 .sorting{

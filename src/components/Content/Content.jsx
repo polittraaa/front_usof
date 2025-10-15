@@ -3,7 +3,7 @@ import PostDemo from '../PostDemo/PostDemo';
 import './Content.css';
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "/src/postStore/PostFetch.js";
+import { fetchPosts } from "/src/store/PostFetch.js";
 
 function Content({ onRouteChange }) {
     const dispatch = useDispatch();
@@ -27,13 +27,13 @@ function Content({ onRouteChange }) {
 
     function openPost(id) {
         // link apdate
-        window.history.pushState({}, '', `/posts/${id}`);
+        // window.history.pushState({}, '', `/posts/${id}`);
         onRouteChange(`post:${id}`);
     }
     const loading = status === "loading";
 
     return (
-        <div className="main-content">
+        <div className="content-main">
             {loading && !error && (
                 <div className="loader-container">
                     <div className="loader"></div>
