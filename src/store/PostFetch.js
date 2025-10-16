@@ -20,12 +20,10 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
         `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`
       );
       const comData = await comRes.json();
-      console.log('comData.comments',  comData.comments)
 
       const commentCount = Array.isArray(comData)
         ? comData.length : comData.comments?.length || 0;
       
-      console.log('commentCount', commentCount) 
       return {
         ...post,
         categories: catData,

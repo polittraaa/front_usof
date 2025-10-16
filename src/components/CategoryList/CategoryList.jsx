@@ -1,7 +1,6 @@
-import React from "react";
 import "./CategoryList.css";
 import Category from '../Category/Category';
-
+import { useState, useEffect, useRef } from 'react';
 
 export default function CategoriesPage() {
     const [categories, setCategories] = useState([]);
@@ -22,6 +21,7 @@ export default function CategoriesPage() {
       <p className="page-subtitle">
         A collection of all categories available on the platform.
       </p>
+      <div className="cat-grid">
         {categories.map(category => (
             <Category
                 key={category.category_id}
@@ -30,7 +30,7 @@ export default function CategoriesPage() {
                 onClick={() => onRouteChange(`category-${category.category_id}`)}
             />
         ))}
-
       </div>
+    </div>
   );
 }

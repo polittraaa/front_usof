@@ -41,12 +41,12 @@ function PostDemo({ post, onOpen }) {
 
     return (
         <div className="demo custom-hover">
-            <div className="post-header">
-                <img src={avatar}  className="post-avatar" />
-                <div className="post-meta">
-                    <span className="post-author">{author?.login}</span>
+            <div className="demo-header">
+                <img src={avatar}  className="demo-avatar" />
+                <div className="demo-meta">
+                    <span className="demo-author">{author?.login}</span>
                     <span className="middle-dot">&#8226;</span>
-                    <span className="post-time">{createdAt}</span>
+                    <span className="demo-time">{createdAt}</span>
                 </div>
             </div>
 
@@ -54,8 +54,8 @@ function PostDemo({ post, onOpen }) {
                 href={`/posts/${post.post_id}`}// .post_id
                 onClick={(e) => { e.preventDefault(); onOpen(post.post_id); }}
             >
-                <h3 className="post-title">{post.title}</h3>
-                <p className="post-excerpt">{excerpt()}</p>
+                <h3 className="demo-title">{post.title}</h3>
+                <p className="demo-excerpt">{excerpt()}</p>
             </a>
 
             <div className="bage">
@@ -64,7 +64,7 @@ function PostDemo({ post, onOpen }) {
                 ))}
             </div>
 
-            <div className="post-stats">
+            <div className="demo-stats">
                 <div className="stat-item" title="Likes">
                     <i className="fa-solid fa-heart" style={{ color: '#e42b3eff' }}></i>
                     {likes}

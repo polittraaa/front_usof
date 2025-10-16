@@ -32,6 +32,7 @@ function Content({ onRouteChange }) {
     }
     const loading = status === "loading";
 
+    // console.log(visible.map(p => p.post_id));
     return (
         <div className="content-main">
             {loading && !error && (
@@ -49,9 +50,10 @@ function Content({ onRouteChange }) {
             </div>
             <div className="post-list">
                 {visible.map(post => (
-                    <PostDemo key={post.id} post={post} onOpen={openPost} />
+                    <PostDemo key={post.post_id} post={post} onOpen={openPost} />
                 ))}
             </div>
+            
 
             {!loading && !error && visible.length > 0 && (
                 <div className="pagin">

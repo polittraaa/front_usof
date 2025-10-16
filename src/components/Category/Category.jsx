@@ -3,11 +3,11 @@ import './Category.css'
 function Category({ name, description, onClick }) {
     return (
         <div
-            className="cat pointer"
+            className="cat-card pointer"
             onClick={onClick}
-            title={description}
         >
-            <p className='cat-name'>{name}</p>
+            <h className='cat-name'>{name}</h>
+            <p className='cat-name'>{description}</p>
         </div>
     );
 }

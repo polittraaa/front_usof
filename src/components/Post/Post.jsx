@@ -6,12 +6,14 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
     const [author, setAuthor] = useState(null);
     const [post, setPost] = useState(null);
 
+    // console.log(postId)
      useEffect(() => {
         if (!postId) return;
         let cancelled = false;
         async function loadPost() {
             try {                
                 const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`);
+                console.log(res)
                 if (!res.ok) throw new Error('Error loading post');
                 const data = await res.json();
                 if (!cancelled) setPost(data);
@@ -43,8 +45,8 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
         return () => { cancelled = true };
     },[post?.author_id]);
 
-    console.log(author)
-    console.log(post)
+    // console.log(author)
+    // console.log(post)
     const createdAt = new Date(post?.publish_date).toLocaleDateString();
 
     const avatar = author?.picture ? `http://localhost:3001/${author?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'

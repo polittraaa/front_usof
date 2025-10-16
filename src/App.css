@@ -5,6 +5,10 @@
   text-align: center;
   width: 60%;
 }
+.page{
+  display: flex;
+  flex-direction: column;
+}
 .main{
   display: flex; 
   justify-content: space-between;

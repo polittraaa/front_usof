@@ -5,6 +5,7 @@ import Register from './components/Register/Register'
 import ConfirmEmail from './components/ConfirmEmail/ConfirmEmail'
 import PasswordReset from './components/PasswordReset/PasswordReset'
 import About from './components/About/About'
+import CategoriesPage from './components/CategoryList/CategoryList'
 
 import Navigation from './components/Navigation/Navigation'
 import LeftSidebar from './components/LeftSidebar/LeftSidebar'
@@ -59,7 +60,8 @@ function App() {
     register: <Register onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     'verify-email': <ConfirmEmail onRouteChange={onRouteChange} />, 
     'password-reset': <PasswordReset token={passwordResetToken} />,
-    about: <About onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />,
+    about: <About onRouteChange={onRouteChange}/>,
+    categories: <CategoriesPage onRouteChange={onRouteChange}/>,
     // 'create-post': <CreatePost onRouteChange={onRouteChange} userId={userId} />,
     // 'profile': <Profile userId={routeUserId} currentUserId={userId} onRouteChange={onRouteChange} />
   };
@@ -74,13 +76,14 @@ function App() {
 
   return (
     <>
+    <div className='page'>
       <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} route={route} userId={userId} />
 
       <div className="main" style={{ flex: 1 }}>
         {!authRoutes.includes(route) && (
             <LeftSidebar onRouteChange={onRouteChange} />
         )}
-        <div  className="main-content">
+        <div className="main-content">
           {mainContent}
         </div>
         {!authRoutes.includes(route) && (
@@ -89,6 +92,7 @@ function App() {
       </div>
       
      <Footer onRouteChange={onRouteChange} />
+     </div>
     </>
   )
 }

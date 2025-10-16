@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './Login.css'
 
-function Login({ onRouteChange }) {
+function Login({ onRouteChange, onLoginSuccess }) {
   const [logInEmail, setLogInEmail] = useState('');
   const [logIn, setLogIn] = useState('');
   const [logInPassword, setLogInPassword] = useState('');
@@ -45,6 +45,7 @@ function Login({ onRouteChange }) {
       
       if (data.user.user_id) {
         setError('');
+        onLoginSuccess(data.user.user_id);
         onRouteChange('home');
       } else {
         setError('Incorrect login or email or password');
@@ -99,7 +100,7 @@ function Login({ onRouteChange }) {
 
   return (
     <div
-      ref={containerRef} className="login-container">
+      ref={containerRef}>
       <div>
         {/* LOGIN FORM */}
         <article
@@ -108,7 +109,7 @@ function Login({ onRouteChange }) {
             isResetting ? 'hidden' : 'block'
           }`}
         >
-          <main>
+          <main className="login-container">
             <h1>Log In</h1>
             <div>
               <div>
@@ -157,7 +158,7 @@ function Login({ onRouteChange }) {
               Log In
             </button>
 
-            {/* <div> */}
+            <div>
               <p
                 onClick={() => onRouteChange('register')}
               >
@@ -172,7 +173,7 @@ function Login({ onRouteChange }) {
               >
                 Forgot your password?
               </p>
-            {/* </div> */}
+            </div>
           </main>
         </article>
 

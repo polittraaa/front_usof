@@ -46,6 +46,8 @@ function LeftSidebar({ onRouteChange }) {
                     className='left-sidebar-link'
                     onClick={() => onRouteChange('categories')}
                 >Categories</span>
+                {/* <asher > </asher> */}
+                <hr className='mr5 ml5 bg-orange' />
             </div>
         </div>
     );

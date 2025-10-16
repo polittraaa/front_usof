@@ -1,0 +1,22 @@
+.tags-page {
+    padding: 2rem;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.cat-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}

@@ -1,0 +1,119 @@
+.post {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem 2rem;
+    margin: 1.5rem auto;
+    max-width: 700px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Header ===== */
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.post-avatar {
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+    border: 2px solid #eee;
+    transition: border-color 0.2s ease;
+}
+
+.post-avatar:hover {
+    border-color: #ccc;
+
+}
+
+.post-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-author {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.post-time {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 2px 0 0;
+}
+
+/* ===== Content ===== */
+.post-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #222;
+    margin: 1rem 0 0.5rem;
+}
+
+.post-content {
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+}
+
+/* ===== Categories ===== */
+.bage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.category-badge {
+    background-color: #f0f2f5;
+    color: #555;
+    border-radius: 50px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.category-badge:hover {
+    background-color: #e3e7ec;
+    color: #000;
+}
+
+/* ===== Stats ===== */
+.post-stats {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1.25rem;
+    border-top: 1px solid #eee;
+    padding-top: 0.75rem;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: default;
+    transition: transform 0.15s ease;
+}
+
+.stat-item:hover {
+    transform: scale(1.05);
+}
+
+.stat-item i {
+    font-size: 1rem;
+}

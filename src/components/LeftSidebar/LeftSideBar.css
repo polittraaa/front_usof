@@ -32,10 +32,14 @@
     flex-direction: column;
     justify-content: center;
     margin-bottom: 2rem;
+    padding-bottom: 2px;
 }
 
 .left-sidebar-link {
     color: rgb(139, 58, 58);
     cursor: pointer;
     font-size: 28px;
+}
+.left-sidebar-link:hover{
+    background-color: #ede7e0;
 }

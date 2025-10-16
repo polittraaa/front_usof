@@ -12,11 +12,11 @@ function Footer({ onRouteChange }) {
 
         <div className="footer-icons">
           <button type="button" title="GitHub" className="icon-btn">
-           <i class="fa-brands fa-github"></i>
+           <i className="fa-brands fa-github"></i>
           </button>
           
           <button type="button" title="LinkedIn" className="icon-btn">
-            <i class="fa-brands fa-square-linkedin"></i>
+            <i className="fa-brands fa-square-linkedin"></i>
           </button>
 
         </div>
