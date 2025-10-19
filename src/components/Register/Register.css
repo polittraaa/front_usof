@@ -69,7 +69,7 @@ body {
 .register-container button {
     display: block;
     width: 100%;
-    background: linear-gradient(135deg, #e8b35a 0%, #d28a2e 100%);
+    background: linear-gradient(135deg, #e8a35a 0%, #cb7358 100%);
     border: none;
     border-radius: 10px;
     color: #fff;
@@ -83,7 +83,7 @@ body {
 }
 
 .register-container button:hover {
-    background: linear-gradient(135deg, #f0b956 0%, #d38b2b 100%);
+    background: linear-gradient(135deg, #f09956 0%, #e85c39 100%);
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(145, 87, 21, 0.35);
 }

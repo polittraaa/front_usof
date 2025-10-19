@@ -1,16 +1,16 @@
 .demo {
     padding: 1rem;
-    margin: 2em;
+    /* margin: 2em; */
     border: 1px solid #e2e2e2;
     border-radius: 12px;
     background-color: #fff;
-    margin-bottom: 1rem;
+    margin-bottom: 0.1rem;
     transition: box-shadow 0.2s ease-in-out;
     width: 100%;
 }
 
-.demo.custom-hover:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.demo:hover {
+    box-shadow: 0 4px 12px rgba(233, 233, 233, 0.1);
     cursor: pointer;
 }
 

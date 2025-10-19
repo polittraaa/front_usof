@@ -13,10 +13,9 @@ import RightSidebar from './components/RightSidebar/RightSidebar'
 import Content from './components/Content/Content'
 import Post from './components/Post/Post'
 import Footer from './components/Footer/Footer'
+import UserPage from './components/UserPage/UserPage'
 
 // import CreatePost from './components/CreatePost/CreatePost'
-
-// import Profile from './components/Profile/Profile'
 
 import './App.css'
 
@@ -24,7 +23,7 @@ function App() {
   const [route, setRoute] = useState('home');
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [passwordResetToken, setPasswordResetToken] = useState('');
-  const [userId, setUserId] = useState(null);
+  const [loggedUserId, setUserId] = useState(null);
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -58,26 +57,30 @@ function App() {
     home: <Content onRouteChange={onRouteChange} />,
     login: <Login onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     register: <Register onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
-    'verify-email': <ConfirmEmail onRouteChange={onRouteChange} />, 
-    'password-reset': <PasswordReset token={passwordResetToken} />,
     about: <About onRouteChange={onRouteChange}/>,
     categories: <CategoriesPage onRouteChange={onRouteChange}/>,
+    'verify-email': <ConfirmEmail onRouteChange={onRouteChange} />, 
+    'password-reset': <PasswordReset token={passwordResetToken} />,
+    
     // 'create-post': <CreatePost onRouteChange={onRouteChange} userId={userId} />,
-    // 'profile': <Profile userId={routeUserId} currentUserId={userId} onRouteChange={onRouteChange} />
+    userPage: <UserPage currentUserId={loggedUserId} onRouteChange={onRouteChange} />
   };
 
   let mainContent;
   if (route.startsWith('post:')) {
     const postId = route.split(':')[1];
-    mainContent = <Post postId={postId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} userId={userId} />;
-  } else {
+    mainContent = <Post postId={postId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} userId={loggedUserId} />;
+  } else if (route.startsWith('user:')) {
+    const authorId = route.split(':')[1];
+    mainContent = <UserPage authorId={authorId} userId={loggedUserId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} />;
+    } else {
     mainContent = routes[route] || routes.home;
   }
 
   return (
     <>
     <div className='page'>
-      <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} route={route} userId={userId} />
+      <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} route={route} userId={loggedUserId} />
 
       <div className="main" style={{ flex: 1 }}>
         {!authRoutes.includes(route) && (

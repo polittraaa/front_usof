@@ -23,7 +23,7 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 
       const commentCount = Array.isArray(comData)
         ? comData.length : comData.comments?.length || 0;
-      
+
       return {
         ...post,
         categories: catData,
