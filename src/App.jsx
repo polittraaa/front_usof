@@ -15,7 +15,7 @@ import Post from './components/Post/Post'
 import Footer from './components/Footer/Footer'
 import UserPage from './components/UserPage/UserPage'
 
-// import CreatePost from './components/CreatePost/CreatePost'
+import CreatePost from './components/CreatePost/CreatePost'
 
 import './App.css'
 
@@ -61,8 +61,7 @@ function App() {
     categories: <CategoriesPage onRouteChange={onRouteChange}/>,
     'verify-email': <ConfirmEmail onRouteChange={onRouteChange} />, 
     'password-reset': <PasswordReset token={passwordResetToken} />,
-    
-    // 'create-post': <CreatePost onRouteChange={onRouteChange} userId={userId} />,
+    'create-post': <CreatePost onRouteChange={onRouteChange} userId={loggedUserId} />,
     userPage: <UserPage currentUserId={loggedUserId} onRouteChange={onRouteChange} />
   };
 

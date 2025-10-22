@@ -15,8 +15,7 @@ function UserPage({ authorId, userId, onRouteChange, isSignedIn}) {
   
   const isOwnProfile = authorId === userId;
 
-  //pagination
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const {items: posts, status, error, totalPages } = useSelector(
     (state) => state.posts
@@ -50,7 +49,7 @@ function UserPage({ authorId, userId, onRouteChange, isSignedIn}) {
   },[authorId]);
 
   const userPosts = posts.filter(p => p.author_id === Number(authorId));
-  console.log(userPosts)
+  // console.log(userPosts)
   
   //pagination    
   const [page, setPage] = useState(1);
@@ -75,6 +74,11 @@ function UserPage({ authorId, userId, onRouteChange, isSignedIn}) {
           <p className="user-member">Member since {memberSince}</p>
           <p className="user-name">{author?.login}</p>
           <p className="user-name">{author?.full_name}</p>
+          <p className="user-name">{author?.role}</p>
+          <p className="user-name">
+            <i className="fa-solid fa-star" style={{ color: '#f5c518' }}></i>
+            {author?.rating}
+          </p>
 
           {isOwnProfile && (
             <>

@@ -27,6 +27,7 @@
 .user-details {
     display: flex;
     flex-direction: column;
+    justify-self: start;
 }
 
 .user-name {

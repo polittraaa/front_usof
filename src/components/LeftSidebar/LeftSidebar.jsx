@@ -47,7 +47,7 @@ function LeftSidebar({ onRouteChange }) {
                     onClick={() => onRouteChange('categories')}
                 >Categories</span>
                 {/* <asher > </asher> */}
-                <hr className='mr5 ml5 bg-orange' />
+                <hr className='mr3 ml3 bg-orange' />
             </div>
         </div>
     );

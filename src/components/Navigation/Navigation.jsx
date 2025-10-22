@@ -19,9 +19,7 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
     }
   }, [isSignedIn, userId]);
 
-  const avatar = user?.picture
-    ? `http://localhost:3001/${user.picture}`
-    : "http://localhost:3001/public/uploads/default.jpg";    
+  const avatar = user?.picture ? `http://localhost:3001/${user?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'   
 
   function onSearchBarChange(event) {
     setSearchBar(event.target.value);
@@ -89,30 +87,33 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
         {isSignedIn ? (
           <>
-            <p className="f3 link dim black pa3 pointer ma0" onClick={() => onRouteChange('logout')}>Log Out</p>
-              {/* user av */}
-                <img
-                  className="br-100 shadow-1 ml3 mr3 pointer"
-                  src={avatar}
-                  alt="Avatar"
-                  width={40}
-                  height={40}
-                  style={{ objectFit: 'cover' }}
-                  onClick={onViewProfileSubmit}
-                />
-              </>
-              ) : (
-              // log
-              <>
-                <div className="logbox">
-                  <p className="logtext" onClick={() => onRouteChange('login')}>Log In</p>
-                </div>
-                <div className="logbox">
-                  <p className="logtext" onClick={() => onRouteChange('register')}>Register</p>
-                </div>    
-              </>
-            )}
-        </div>
+            {/* loged */}
+              <button className="logbox" onClick={() => onRouteChange('create-post')}>
+                <p className="logtext">Create +</p>
+              </button>
+              <p className="logtext f3 link dim pa3 pointer ma0" onClick={() => onRouteChange('logout')}>Log Out</p>
+              <img
+                className="colour-white"
+                src={avatar}
+                alt="Avatar"
+                width={40}
+                height={40}
+                style={{ objectFit: 'cover' }}
+                onClick={onViewProfileSubmit}
+              />
+            </>
+          ) : (
+            // log
+          <>
+            <div className="logbox">
+              <p className="logtext" onClick={() => onRouteChange('login')}>Log In</p>
+            </div>
+            <div className="logbox">
+              <p className="logtext" onClick={() => onRouteChange('register')}>Register</p>
+            </div>    
+          </>
+        )}
+      </div>
     </nav>
   );
 }
