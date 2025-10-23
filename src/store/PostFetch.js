@@ -6,13 +6,7 @@ export const fetchPosts = createAsyncThunk(
    
     const limit = 5;
     const offset = (page - 1) * limit;
-
-    // if (filters.status) params.append("status", filters.status);
-    // if (filters.categories && filters.categories.length > 0)
-    //   params.append('categories', filters.categories.join(","));
-    // if (filters.date_from) params.append('date_from', filters.date_from);
-    // if (filters.date_to) params.append("date_to", filters.date_to);
-
+    
     let query = `?page=${page}&limit=${limit}&sort=${sort}&order=${order}`;
     if (filters.status) query += `&status=${filters.status}`;
     if (filters.categories?.length) query += `&categories=${filters.categories.join(",")}`;

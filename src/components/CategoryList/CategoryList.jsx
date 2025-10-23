@@ -2,7 +2,7 @@ import "./CategoryList.css";
 import Category from '../Category/Category';
 import { useState, useEffect, useRef } from 'react';
 
-export default function CategoriesPage() {
+export default function CategoriesPage({ onRouteChange }) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {        
@@ -27,7 +27,7 @@ export default function CategoriesPage() {
                 key={category.category_id}
                 name={category.title}
                 description={category.category_description}
-                onClick={() => onRouteChange(`category-${category.category_id}`)}
+                onClick={() => onRouteChange(`category:${category.category_id}`)}
             />
         ))}
       </div>

@@ -125,12 +125,12 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
               postComments.map((comment) => (
                 <div key={comment.comment_id}>
                   {comment.content}
-                  <div className="stat-item" title="Likes">
-                  <i className="fa-solid fa-heart w1" style={{ color: '#cf741aff' }}></i>
+                  <div className="stat-item-com" title="Likes">
+                  <i className="fa-solid fa-heart" style={{ color: '#cf741aff' }}></i>
                   {likes}
               </div>
 
-              <div className="stat-item" title="Dislikes">
+              <div className="stat-item-com" title="Dislikes">
                   <i className="fa-solid fa-heart-crack" style={{ color: '#e42b3eff' }}></i>
                   {dislikes}
               </div>

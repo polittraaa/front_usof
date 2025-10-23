@@ -42,7 +42,11 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
   // if (route !== 'home') {
     return (
       <nav className="bar">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.7em'}}>
         <img src="./src/assets/logosvg.svg" alt="logo" className="logo"></img>
+        <p onClick={() => onRouteChange('home')} className="usof">USOF</p>
+      </div>
+
         <div className="links">
           <p className="logtext" onClick={() => onRouteChange('home')}>Home</p>
           <p className="logtext" onClick={() => onRouteChange('login')}>Log In</p>
@@ -74,18 +78,26 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
         </div>
       </form>
             
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.7em', justifyContent: 'space-around' }}>
+      <div className="log-options">
         {isSignedIn ? (
           <>
             {/* loged */}
-              <button className="logbox" onClick={() => onRouteChange('create-post')}>
+              <button className="logbox max-width-5" onClick={() => onRouteChange('create-post')}>
                 <p className="logtext">Create +</p>
               </button>
               <p className="logtext link pointer" onClick={() => onRouteChange('logout')}>Log Out</p>
-              <img className="ava mr2" src={avatar} onClick={onViewProfileSubmit} />
+              {/* <img className="ava mr2" src={avatar} onClick={onViewProfileSubmit} /> */}
+              <a  href={`/users/${user?.login}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onRouteChange(`user:${userId}`);
+                }}
+              >   
+                <img src={avatar} className="ava mr2" />
+              </a>
             </>
           ) : (
-            // log
+            // not loged
           <>
             <div className="logbox">
               <p className="logtext" onClick={() => onRouteChange('login')}>Log In</p>

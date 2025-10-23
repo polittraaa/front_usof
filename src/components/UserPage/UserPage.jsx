@@ -68,6 +68,7 @@ function UserPage({ authorId, userId, onRouteChange, isSignedIn}) {
 
   return (
     <div className="user-header">
+     <div className="user-container">
       <div className="user-info">
         <img src={avatar} className="user-avatar" alt="User avatar" />
         <div className="user-details">
@@ -93,8 +94,8 @@ function UserPage({ authorId, userId, onRouteChange, isSignedIn}) {
           )}
         </div>
       </div>
-    <hr className="user-divider" />
-    
+    </div>
+
     {/* posts */}
     <h2>Post board</h2>
       <div className="post-list mb5">

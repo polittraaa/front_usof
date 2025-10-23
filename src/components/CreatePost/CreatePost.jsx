@@ -19,6 +19,7 @@ function CreatePost({ onRouteChange, userId }) {
         });
         if (res.ok) {
           const data = await res.json();
+          console.log("Fetched categories:", data);
           setAllCategories(data);
         } else {
           console.error("Failed to fetch categories");
@@ -95,7 +96,7 @@ function CreatePost({ onRouteChange, userId }) {
             onRouteChange('home');
           }}
         >
-          <i className="fa-solid fa-arrow-left"></i>
+        <i className="fa-solid fa-arrow-left"></i>
         </div>
         <h2>Create New Post</h2>
       </div>

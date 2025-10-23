@@ -5,17 +5,18 @@ import Register from './components/Register/Register'
 import ConfirmEmail from './components/ConfirmEmail/ConfirmEmail'
 import PasswordReset from './components/PasswordReset/PasswordReset'
 import About from './components/About/About'
+
 import CategoriesPage from './components/CategoryList/CategoryList'
+import UserPage from './components/UserPage/UserPage'
+import Post from './components/Post/Post'
+import CreatePost from './components/CreatePost/CreatePost'
+import CategoryPage from './components/CategoryPage/CategoryPost'
 
 import Navigation from './components/Navigation/Navigation'
 import LeftSidebar from './components/LeftSidebar/LeftSidebar'
 import RightSidebar from './components/RightSidebar/RightSidebar'
 import Content from './components/Content/Content'
-import Post from './components/Post/Post'
 import Footer from './components/Footer/Footer'
-import UserPage from './components/UserPage/UserPage'
-
-import CreatePost from './components/CreatePost/CreatePost'
 
 import './App.css'
 
@@ -54,7 +55,7 @@ function App() {
   const authRoutes = ['login', 'register', 'verify-email', 'password-reset'];
 
   const routes = { 
-    home: <Content onRouteChange={onRouteChange} />,
+    home: <Content onRouteChange={onRouteChange} isSignedIn={isSignedIn}/>,
     login: <Login onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     register: <Register onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     about: <About onRouteChange={onRouteChange}/>,
@@ -72,9 +73,14 @@ function App() {
   } else if (route.startsWith('user:')) {
     const authorId = route.split(':')[1];
     mainContent = <UserPage authorId={authorId} userId={loggedUserId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} />;
-    } else {
+  } else if (route.startsWith('category:')) {
+    const catId = route.split(':')[1];
+    mainContent = <CategoryPage catId={catId} userId={loggedUserId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} />;
+  } else {
     mainContent = routes[route] || routes.home;
   }
+
+  console.log(route);
 
   return (
     <>

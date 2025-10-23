@@ -1,14 +1,27 @@
 .user-header {
-    margin-top: 6em;
+    margin-top: 5em;
     width: 100%;
     margin-inline: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
+.user-container{
+    background-color: #fefcf7;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    margin-left: 2.5em;
+    border-radius: 9px;
+    box-shadow: 0 4px 10px rgba(145, 87, 21, 0.3);
+}
 .user-info {
     margin-top: 1em;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     gap: 1rem;
+    border-radius: 0.5rem;
 }
 
 .user-avatar {

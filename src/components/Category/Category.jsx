@@ -12,9 +12,9 @@ function Category({ name, description, onClick }) {
     return (
         <div
             className="cat-card pointer"
-            onClick={onClick}
+            // onClick={posts}
         >
-            <h className='cat-name'>{name}</h>
+            <h3 className='cat-name'>{name}</h3>
             <p className='cat-name'>{excerpt()}</p>
         </div>
     );

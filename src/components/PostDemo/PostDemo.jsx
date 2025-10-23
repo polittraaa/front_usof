@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './PostDemo.css';
 
-function PostDemo({ post, onOpen }) {
+function PostDemo({ post, isSignedIn, onOpen }) {
   const [author, setAuthor] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(post.likes_count || 0);
@@ -36,17 +36,22 @@ function PostDemo({ post, onOpen }) {
     };
   }, [post.author_id]);
 
+  // function likecheck{}
+
   // Like/Unlike handler
   async function handleLike() {
     try {
-      const url = `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/like`;
+      if (!isSignedIn) throw new Error('Sign in to like');
+       const url = `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/like`;
       if (!isLiked) {
-        const res = await fetch(url, { method: 'POST' });
+       const res = await fetch(url, { method: 'POST', credentials: 'include' });
+       console.log(res);
+       
         if (!res.ok) throw new Error('Could not like');
         setLikes((prev) => prev + 1);
         setIsLiked(true);
       } else {
-        const res = await fetch(url, { method: 'DELETE' });
+        const res = await fetch(url, { method: 'DELETE', credentials: 'include' });
         if (!res.ok) throw new Error('Could not unlike');
         setLikes((prev) => Math.max(prev - 1, 0));
         setIsLiked(false);
@@ -68,7 +73,15 @@ function PostDemo({ post, onOpen }) {
   return (
     <div className="demo">
       <div className="demo-header">
-        <img src={avatar} className="demo-avatar" />
+        {/* <img src={avatar} className="demo-avatar" /> */}
+        <a  href={`/users/${author?.login}`}
+          onClick={(e) => {
+            e.preventDefault();
+            onRouteChange(`user:${author?.user_id}`);
+          }}
+        >   
+          <img src={avatar}  className="demo-avatar" />
+        </a>
         <div className="demo-meta">
           <span className="demo-author">{author?.login}</span>
           <span className="middle-dot">&#8226;</span>

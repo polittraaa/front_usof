@@ -5,7 +5,7 @@ import './Content.css';
 
 import { fetchPosts } from "/src/store/PostFetch.js";
 
-function Content({ onRouteChange }) {
+function Content({ onRouteChange, isSignedIn }) {
   const dispatch = useDispatch();
 
   const {items: posts, status, error, totalPages } = useSelector(
@@ -68,7 +68,7 @@ function Content({ onRouteChange }) {
 
       <div className="post-list">
         {posts.map(post => (
-          <PostDemo key={post.post_id} post={post} onOpen={openPost} />
+          <PostDemo key={post.post_id} post={post} isSignedIn={isSignedIn} onOpen={openPost} />
         ))}
       </div>
       
