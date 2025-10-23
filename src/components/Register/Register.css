@@ -4,9 +4,8 @@ body {
     color: #4b2e05;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
+    align-items: center;
     min-height: 100vh;
-    margin: 0;
 }
 
 /* Container */
@@ -16,10 +15,11 @@ body {
     border: 1px solid #e3c68d;
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(115, 74, 16, 0.2);
-    padding: 2.5rem 3rem;
+    padding: 1rem 2rem;
     width: 100%;
     max-width: 420px;
     transition: transform 0.2s ease;
+    margin-top: 3em;
 }
 
 .register-container:hover {

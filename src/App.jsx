@@ -93,8 +93,8 @@ function App() {
         )}
       </div>
       
-     <Footer onRouteChange={onRouteChange} />
      </div>
+     <Footer onRouteChange={onRouteChange} route={route} />
     </>
   )
 }

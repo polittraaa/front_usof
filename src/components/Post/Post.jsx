@@ -6,7 +6,7 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
   const [post, setPost] = useState(null);
   const [postCats, setPostCats] = useState(null);
   const [postComments, setPostComments] = useState(null);
-  // const [commentCount, setCommentcount] = useState(null);
+  const [commentCount, setCommentcount] = useState(null);
   
   useEffect(() => {
     if (!postId) return;
@@ -115,14 +115,27 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
             <i className="fa-solid fa-star" style={{ color: '#f5c518' }}></i>
             {rating}
         </div>
+          <div className="stat-item" title="comment">
+            <i className="fa-solid fa-message" style={{ color: '#1870f5ff' }}></i>
+            {commentCount}
+        </div>
       </div>
-        <div>
-           <ul>
+        <div className='comment'>
             {Array.isArray(postComments) &&
               postComments.map((comment) => (
-             <li key={comment.comment_id}>{comment.content}</li>
+                <div key={comment.comment_id}>
+                  {comment.content}
+                  <div className="stat-item" title="Likes">
+                  <i className="fa-solid fa-heart w1" style={{ color: '#cf741aff' }}></i>
+                  {likes}
+              </div>
+
+              <div className="stat-item" title="Dislikes">
+                  <i className="fa-solid fa-heart-crack" style={{ color: '#e42b3eff' }}></i>
+                  {dislikes}
+              </div>
+                </div>
               ))}
-          </ul>
         </div>
     </div>
   );

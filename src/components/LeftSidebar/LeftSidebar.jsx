@@ -18,16 +18,6 @@ function LeftSidebar({ onRouteChange }) {
         <div 
             className="left-sidebar-container" 
         >
-            {/* <div className='categories-list'>
-                {categories.map(category => (
-                    <Category
-                        key={category.category_id}
-                        name={category.title}
-                        description={category.category_description}
-                        onClick={() => onRouteChange(`category-${category.category_id}`)}
-                    />
-                ))}
-            </div> */}
 
             <div className='left-sidebar-links-container'>
                 <span 

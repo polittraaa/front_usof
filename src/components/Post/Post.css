@@ -5,7 +5,10 @@
     padding: 1.5rem 2rem;
     margin: 1.5rem auto;
     width: 90%;
+    /* display: flex; */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+
 }
 
 .post:hover {
@@ -54,13 +57,18 @@
 
 /* ===== Content ===== */
 .post-title {
-    font-size: 1.4rem;
-    font-weight: 700;
+    display: flex;
+    justify-content: left;
+    font-size: 1.2rem;
+    font-weight: 600;
     color: #222;
     margin: 1rem 0 0.5rem;
+    text-decoration: none;
 }
 
 .post-content {
+    display: flex;
+    justify-content: left;
     color: #444;
     line-height: 1.6;
     margin-bottom: 1rem;
@@ -115,4 +123,8 @@
 
 .stat-item i {
     font-size: 1rem;
+}
+
+.stat-item-com {
+  
 }

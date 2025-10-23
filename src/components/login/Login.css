@@ -12,6 +12,7 @@ body {
 /* Shared container */
 .login-container {
     margin-bottom: 4em;
+    margin-top: 2em;
     background: rgba(243, 231, 225, 0.95);
     backdrop-filter: blur(8px);
     border: 1px solid #e3c68d;

@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react';
 import './Footer.css';
 
-function Footer({ onRouteChange }) {
+function Footer({ onRouteChange, route }) {
+
+   if (route === 'login' || route === 'register' || route === 'verify-email' || route === 'password-reset' || route === 'post') {
+  // if (route !== 'home') {
+    return (
+      <footer style={{visibility: 'none'}}>
+      
+    </footer>
+    );
+  }
   return (
     <footer className="footer">
       <div className="footer-content">
         <div className="contact">
-          <p>contact us</p>
-          <p>ptovstonoh@gmail.com</p>
+          <p className="mr4">contact us: <a style={{textDecoration: "none", color: " rgb(154, 195, 163)"}}href="#">ptovstonoh@gmail.com</a></p>
         </div>
 
         <div className="footer-icons">

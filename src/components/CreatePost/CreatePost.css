@@ -1,6 +1,6 @@
 .create-post-page {
-    background-color: white;
-    padding: 6rem 20% 6rem 20%;
+    /* background-color: white; */
+    padding: 1rem 20%;
     min-height: 100vh;
     overflow-y: auto;
 }

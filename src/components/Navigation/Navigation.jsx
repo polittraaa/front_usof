@@ -8,6 +8,7 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
   //user data
   useEffect(() => {
     if (isSignedIn && userId) {
+      
       fetch(`${import.meta.env.VITE_API_URL}/users/${userId}`, {
         credentials: "include",
       })
@@ -19,7 +20,10 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
     }
   }, [isSignedIn, userId]);
 
-  const avatar = user?.picture ? `http://localhost:3001/${user?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'   
+  const avatar = user?.picture ? `http://localhost:3001/${user?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'
+  
+  // console.log(avatar);
+  // console.log(user);
 
   function onSearchBarChange(event) {
     setSearchBar(event.target.value);
@@ -32,12 +36,13 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
   function onViewProfileSubmit() {
     onRouteChange('registers')
   }
+
   //return home
-  // if (route === 'login' || route === 'register' || route === 'verify-email' || route === 'password-reset') {
-  if (route !== 'home') {
+  if (route === 'login' || route === 'register' || route === 'verify-email' || route === 'password-reset') {
+  // if (route !== 'home') {
     return (
       <nav className="bar">
-        <img src="../src/assets/logosvg.svg" alt="logo" className="logo"></img>
+        <img src="./src/assets/logosvg.svg" alt="logo" className="logo"></img>
         <div className="links">
           <p className="logtext" onClick={() => onRouteChange('home')}>Home</p>
           <p className="logtext" onClick={() => onRouteChange('login')}>Log In</p>
@@ -46,36 +51,21 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
       </nav>
     );
   }
-  
-  console.log(isSignedIn);
     
   return (
     <nav 
       className="bar">
       {/* // LOGO */}
-      <img src="../src/assets/logosvg.svg" alt="logo" className="logo"></img>
-      <div 
-        className="pointer ml4"
-        onClick={() => onRouteChange('home')}
-        style={{
-          fontSize: '1.5rem',
-          fontWeight: 'bold',
-          color: '#FFF1E8'
-        }}
-    >
-        USOF
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.7em'}}>
+        <img src="./src/assets/logosvg.svg" alt="logo" className="logo"></img>
+        <p onClick={() => onRouteChange('home')} className="usof">USOF</p>
       </div>
             
-      <form onSubmit={handleSearch} className="flex items-center justify-center w-50-nsc w-90">
-        {/* search bar  */}
-        <div className="relative w-80 ma0" style={{backgroundColor: '#FFF1E8'}}>
-          <i
-            className="fa-solid fa-magnifying-glass absolute left-1 top-50 translate--y-50 black-50"
-            style={{ top: '50%', transform: 'translateY(-50%)', left: '10px', color: '#8a3500ff'}}
-          ></i>
-
+      <form onSubmit={handleSearch} className="search-form">
+        <div className="search-container">
+          <i className="fa-solid fa-magnifying-glass search-icon"></i>
           <input
-            className="pa2 pl4 input-reset ba b--black-20 w-100 outline-0 focus-b--transparent"
+            className="search-input"
             type="text"
             placeholder="Search for..."
             value={searchBar}
@@ -84,23 +74,15 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
         </div>
       </form>
             
-      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.7em', justifyContent: 'space-around' }}>
         {isSignedIn ? (
           <>
             {/* loged */}
               <button className="logbox" onClick={() => onRouteChange('create-post')}>
                 <p className="logtext">Create +</p>
               </button>
-              <p className="logtext f3 link dim pa3 pointer ma0" onClick={() => onRouteChange('logout')}>Log Out</p>
-              <img
-                className="colour-white"
-                src={avatar}
-                alt="Avatar"
-                width={40}
-                height={40}
-                style={{ objectFit: 'cover' }}
-                onClick={onViewProfileSubmit}
-              />
+              <p className="logtext link pointer" onClick={() => onRouteChange('logout')}>Log Out</p>
+              <img className="ava mr2" src={avatar} onClick={onViewProfileSubmit} />
             </>
           ) : (
             // log

@@ -182,7 +182,7 @@ function Login({ onRouteChange, onLoginSuccess }) {
           ref={resetRef}
           className={`${ isResetting ? 'block' : 'hidden'}`}
         >
-          <main>
+          <main className="login-container">
             <h1>Reset Password</h1>
             <div>
               <div>

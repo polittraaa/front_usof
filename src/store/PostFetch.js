@@ -1,43 +1,59 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/posts`);
-  if (!res.ok) throw new Error("Error loading posts: " + res.status);
+export const fetchPosts = createAsyncThunk(
+  "posts/fetchPosts",
+  async ({page = 1, sort = "rating", order = "desc", filters = {}} ={}, { getState }) => {
+   
+    const limit = 5;
+    const offset = (page - 1) * limit;
 
-  const data = await res.json();
-  const posts = Array.isArray(data.posts.posts) ? data.posts.posts : [];
+    // if (filters.status) params.append("status", filters.status);
+    // if (filters.categories && filters.categories.length > 0)
+    //   params.append('categories', filters.categories.join(","));
+    // if (filters.date_from) params.append('date_from', filters.date_from);
+    // if (filters.date_to) params.append("date_to", filters.date_to);
 
-  const postsWithCategories = await Promise.all(
-    posts.map(async (post) => {
-      // Fetch categories
-      const catRes = await fetch(
-        `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`
-      );
-      const catData = await catRes.json();
+    let query = `?page=${page}&limit=${limit}&sort=${sort}&order=${order}`;
+    if (filters.status) query += `&status=${filters.status}`;
+    if (filters.categories?.length) query += `&categories=${filters.categories.join(",")}`;
+    
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts${query}`);
+    if (!res.ok) throw new Error("Error loading posts: " + res.status);
 
-      // Fetch comments
-      const comRes = await fetch(
-        `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`
-      );
-      const comData = await comRes.json();
+    const data = await res.json();
+    const posts = Array.isArray(data.posts.posts) ? data.posts.posts : [];
 
-      const commentCount = Array.isArray(comData)
-        ? comData.length : comData.comments?.length || 0;
+    const postsWithCategories = await Promise.all(
+      posts.map(async (post) => {
+        const catRes = await fetch(
+          `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`
+        );
+        const catData = await catRes.json();
 
-      return {
-        ...post,
-        categories: catData,
-        comments: comData,
-        commentCount,
-      };
-    })
-  );
+        const comRes = await fetch(
+          `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`
+        );
+        const comData = await comRes.json();
 
-  return {
-    posts: postsWithCategories,
-    totalPages: data.page_count,
-  };
-});
+        const commentCount = Array.isArray(comData)
+          ? comData.length
+          : comData.comments?.length || 0;
+
+        return {
+          ...post,
+          categories: catData,
+          comments: comData,
+          commentCount,
+        };
+      })
+    );
+
+    return {
+      posts: postsWithCategories,
+      totalPages: data.page_count,
+    };
+  }
+);
 
 const postsSlice = createSlice({
   name: "posts",

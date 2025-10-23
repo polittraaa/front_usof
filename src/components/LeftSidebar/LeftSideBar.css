@@ -30,13 +30,13 @@
 .left-sidebar-links-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content:flex-start;
     margin-bottom: 2rem;
     padding-bottom: 2px;
 }
 
 .left-sidebar-link {
-    color: rgb(139, 58, 58);
+    color: rgb(135, 65, 65);
     cursor: pointer;
     font-size: 28px;
 }
