@@ -29,9 +29,26 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
     setSearchBar(event.target.value);
   }
   //search 
-  function handleSearch() {
-      
+  function handleSearch(event) {
+    event.preventDefault(); // prevent page reload on form submit
+
+    const searchTerm = searchBar.trim();
+    if (!searchTerm) return; // ignore empty searches
+
+    const page = 1;
+    const limit = 5;
+
+    fetch(`${import.meta.env.VITE_API_URL}/posts/search?search=${encodeURIComponent(searchTerm)}&page=${page}&limit=${limit}`, {
+      credentials: 'include', // if your backend requires cookies/session
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('Search results:', data.posts);
+        // TODO: update state or call a prop function to show the results
+      })
+      .catch(err => console.error('Search error:', err));
   }
+
 
   function onViewProfileSubmit() {
     onRouteChange('registers')
