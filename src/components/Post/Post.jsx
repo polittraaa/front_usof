@@ -32,9 +32,11 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
         const data = await res.json();
         const postData = data.post;        
 
+        // cat
         const catRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/categories`);
         const catData = await catRes.json();
 
+        // com
         const comRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/comments`);
         const comData = await comRes.json();
 
@@ -42,6 +44,7 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
           ? comData.length
           : comData.comments?.length || 0;
 
+        // likes
         const likeRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/like`);
         if (!likeRes.ok) throw new Error('Failed to fetch likes');
         const likeData = await likeRes.json();
@@ -51,6 +54,7 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
         const dislikes_count = likesArr.filter(l => l.like_type === 'dislike').length;
         const newRating = likes_count - dislikes_count;
 
+        // favs
         const favRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/favorites`, {
           credentials: 'include',
         });
@@ -347,7 +351,18 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
           <i className="fa-solid fa-comment" style={{ color: '#908659ff' }}></i>
           {commentCount}
         </div>
-        
+
+        <div className="stat-item" title="Favorites">
+          <i
+            onClick={handleToggleFavorite}
+            className={`fa-solid fa-bookmark ${isFavorite ? 'favorited' : ''}`}
+            style={{
+              color: isFavorite ? '#e6b800' : '#7a7a7a',
+              cursor: 'pointer',
+            }}
+          ></i>
+          {favoriteCount}
+        </div>        
         <button
           type="button"
           className="add-comment-btn"
