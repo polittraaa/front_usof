@@ -13,7 +13,7 @@ function UserPage({ authorId, userId, onRouteChange, isSignedIn}) {
   const [postComments, setPostComments] = useState(null);
   const [commentCount, setCommentcount] = useState(null);
   
-  const isOwnProfile = authorId === userId;
+  const isOwnProfile = Number(authorId) === Number(userId);
 
   const dispatch = useDispatch();
 
@@ -84,15 +84,15 @@ function UserPage({ authorId, userId, onRouteChange, isSignedIn}) {
           </div>
 
           {isOwnProfile && (
-            <>
-            <p className="user-name">{author?.email}</p>
-            <button
-              className="edit-profile-btn"
-              onClick={() => onRouteChange('edit-profile')}
-            >
-              Edit Profile
-            </button>
-            </>
+            <div style={{ margin: '1rem' }}>
+              <p className="user-name">{author?.email}</p>
+              <button
+                className="edit-profile-btn"
+                onClick={() => onRouteChange(`edit-profile/${userId}`)}
+              >
+                Edit Profile
+              </button>
+            </div>
           )}
         </div>
       </div>
