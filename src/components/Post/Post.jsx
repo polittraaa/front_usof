@@ -12,21 +12,13 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
   const [dislikes, setDislikes] = useState(0);
   const [rating, setRating] = useState(0);
   const [userLikeType, setUserLikeType] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteCount, setFavoriteCount] = useState(0);
 
   //for comm 
   const [showCommentForm, setShowCommentForm] = useState(false);
   const [newComment, setNewComment] = useState('');
   const [submitting, setSubmitting] = useState(false);
-
-  // // Shorten text content
-  // function excerpt(n = 200) {
-  //   const content = post?.content || '';
-  //   if (content.length <= n) return content;
-  //   let cut = content.slice(0, n);
-  //   const lastSpace = cut.lastIndexOf(' ');
-  //   if (lastSpace > 0) cut = cut.slice(0, lastSpace);
-  //   return cut.trim() + '...';
-  // }
 
   // Load post, categories, comments
   useEffect(() => {
@@ -59,6 +51,21 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
         const dislikes_count = likesArr.filter(l => l.like_type === 'dislike').length;
         const newRating = likes_count - dislikes_count;
 
+        const favRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/favorites`, {
+          credentials: 'include',
+        });
+        if (favRes.ok) {
+          const favData = await favRes.json();
+          const favorites = favData.favorites || [];
+
+          const count = favorites.length;
+          const isFav = favorites.some(fav => fav.user_id === userId);
+
+          if (!cancelled) {
+            setFavoriteCount(count);
+            setIsFavorite(isFav);
+          }
+        }
         if (!cancelled) {
           setPost(postData);
           setLikes(likes_count);
@@ -188,7 +195,7 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
       credentials: 'include',
       body: JSON.stringify({
         content: newComment,
-        user_id: userId, // optional if backend takes from session
+        user_id: userId,
       }),
     });
 
@@ -233,12 +240,71 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
           <p className="post-author">{author?.login}</p>
           <p className="post-time">{createdAt}</p>
         </div>
+        <div>
+          {userId === post.author_id && (
+            <div style={{ position: 'relative' }}>
+              <i
+                className="fa-solid fa-ellipsis-vertical"
+                style={{
+                  cursor: 'pointer',
+                  fontSize: '1.2rem',
+                  padding: '.3rem',
+                }}
+                onClick={() => setShowMenu(!showMenu)}
+              ></i>
+
+              {showMenu && (
+                <div
+                  className="post-menu"
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    top: '1.5rem',
+                    background: 'white',
+                    border: '1px solid #ddd',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                    zIndex: 100,
+                    minWidth: '150px'
+                  }}
+                >
+                <div
+                  className="menu-item"
+                  onClick={() => onRouteChange(`editpost/${post.id}`)}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    cursor: 'pointer',
+                    borderBottom: '1px solid #eee'
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = '#f5f5f5'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'white'}
+                >
+                  <i className="fa-solid fa-pen" style={{ marginRight: '6px' }}></i> Edit
+                </div>
+                  <div
+                    className="menu-item"
+                    onClick={handleDelete}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      cursor: 'pointer',
+                      color: '#c00'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#fbeaea'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'white'}
+                  >
+                    <i className="fa-solid fa-trash" style={{ marginRight: '6px' }}></i> Delete
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       <h3 className="post-title">{post?.title}</h3>
       <p className="post-content">{post?.content}</p>
 
-      <div className="badge-container">
+      <div className="badge-container ma1">
         {postCats.length > 0
           ? postCats.map(cat => (
               <span key={cat.id} className="category-badge">{cat.title}</span>

@@ -42,7 +42,7 @@ function CreatePost({ onRouteChange, userId }) {
         body: JSON.stringify({
           title,
           content,
-          categories: categories.map(c => c.id),
+          categories: categories.map(c => c.title),
           user_id: userId,
           status: isActive ? 'active' : 'inactive'
         })

@@ -127,7 +127,8 @@ function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
           {commentsCount}
         </div>
 
-        <div className="stat-item" title="Save">
+        <div className="stat-item" 
+        title="Save">
           <i className="fa-solid fa-bookmark" style={{ color: '#908659ff' }}></i>
         </div>
       </div>

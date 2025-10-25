@@ -69,6 +69,13 @@ function LeftSidebar({ onRouteChange, isSignedIn, userId }) {
             </span>
           </>
         )}
+
+         <span 
+          className="left-sidebar-link"
+          onClick={() => onRouteChange('favorites')}
+        >
+          Favorites
+        </span>
       </div>
     </div>
   );
