@@ -1,7 +1,7 @@
  import "./UserCard.css";
  import { useState, useEffect, useRef } from 'react';
  
- export default function UserCard( user, isSignedIn, onOpen, onRouteChange) {
+ export default function UserCard( user, onRouteChange) {
 
   user = user.user;
   
@@ -22,7 +22,7 @@
               <img src={avatar} className="user-avatar" alt="User avatar" />
           </a>
         </div>
-        <div className="user-details ma2">
+        <div className="user-details ml3">
           <p className="user-member">Member since {memberSince}</p>
           <p className="user-name">{user?.login}</p>
           <p className="user-name">{user?.full_name}</p>

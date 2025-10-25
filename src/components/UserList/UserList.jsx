@@ -26,12 +26,10 @@ export default function UserList({ onRouteChange }) {
   console.log(users)
   return (
     <>
-    <div className="new-user-container">
-      <div className="user-list">
+    <div className="user-list">
         {users.map(user => (
           <UserCard key={user.user_id} user={user} onRouteChange={onRouteChange}/>
         ))}
-      </div>
     </div>
     </>
   )
