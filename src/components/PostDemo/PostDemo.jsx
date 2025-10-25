@@ -3,6 +3,7 @@ import './PostDemo.css';
 
 function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
   const [author, setAuthor] = useState(null);
+  const [showMenu, setShowMenu] = useState(false);
 
   // Shorten content
   function excerpt(n = 200) {
@@ -48,6 +49,36 @@ function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
     : 'http://localhost:3001/public/uploads/base_default.png';
   const commentsCount = post.commentCount || 0;
 
+  async function handleDelete() {
+    const confirmDelete = window.confirm('Are you sure you want to delete this post?');
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+      if (res.ok) {
+        alert('Post successfully deleted');
+        // onRouteChange('home');
+      } else {
+        alert('Error when deleting post');
+      }
+    } catch (err) {
+      console.error('Delete error:', err);
+    }
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.post-menu') && !e.target.closest('.fa-ellipsis-vertical')) {
+        setShowMenu(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
     <div className="demo">
       <div className="demo-header">
@@ -65,6 +96,67 @@ function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
           <span className="middle-dot">&#8226;</span>
           <span className="demo-time">{createdAt}</span>
         </div>
+
+        <div>
+          {userId === post.author_id && (
+            <div style={{ position: 'relative' }}>
+              <i
+                className="fa-solid fa-ellipsis-vertical"
+                style={{
+                  cursor: 'pointer',
+                  fontSize: '1.2rem',
+                  padding: '.3rem',
+                }}
+                onClick={() => setShowMenu(!showMenu)}
+              ></i>
+
+              {showMenu && (
+                <div
+                  className="post-menu"
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    top: '1.5rem',
+                    background: 'white',
+                    border: '1px solid #ddd',
+                    borderRadius: '6px',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                    zIndex: 100,
+                    minWidth: '150px'
+                  }}
+                >
+                {/* <div
+                  className="menu-item"
+                  onClick={() => onRouteChange(`editpost/${post.id}`)}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    cursor: 'pointer',
+                    borderBottom: '1px solid #eee'
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = '#f5f5f5'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'white'}
+                >
+                  <i className="fa-solid fa-pen" style={{ marginRight: '6px' }}></i> Edit
+                </div> */}
+                  <div
+                    className="menu-item"
+                    onClick={handleDelete}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      cursor: 'pointer',
+                      color: '#c00'
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#fbeaea'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'white'}
+                  >
+                    <i className="fa-solid fa-trash" style={{ marginRight: '6px' }}></i> Delete
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
       </div>
 
       <a

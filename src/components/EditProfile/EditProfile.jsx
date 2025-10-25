@@ -12,7 +12,7 @@ function EditProfile({ currentUserId, onRouteChange,  }) {
     const [lastname, setLastname] = useState('');
     const [login, setlogin] = useState('');
 
-     function onLoginChange(event) {
+    function onLoginChange(event) {
       setlogin(event.target.value);
     }
 
@@ -176,9 +176,12 @@ function EditProfile({ currentUserId, onRouteChange,  }) {
 
     const avatarUrl = preview
         ? preview
-        : user.profile_picture
-        ? `http://localhost:3000/${user.profile_picture}`
-        : "http://localhost:3000/uploads/avatars/default.png";        
+        : user.picture
+        ? `http://localhost:3001/${user.picture}`
+        : "http://localhost:3001/public/uploads/base_default.png";      
+        
+    console.log(user.picture);
+    
 
     return (
         <div 

@@ -82,7 +82,7 @@ function App() {
     const catId = route.split(':')[1];
     mainContent = <CategoryPage catId={catId} userId={loggedUserId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} />;
   } else if (route.startsWith('edit-profile/')) {
-    mainContent = <EditProfile onRouteChange={onRouteChange} currentUserId={userId} />;
+    mainContent = <EditProfile onRouteChange={onRouteChange} currentUserId={loggedUserId} />;
   } else {
     mainContent = routes[route] || routes.home;
   }
