@@ -11,7 +11,9 @@ export const fetchPosts = createAsyncThunk(
     if (filters.status) query += `&status=${filters.status}`;
     if (filters.categories?.length) query += `&categories=${filters.categories.join(",")}`;
     
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts${query}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts${query}`, {
+      credentials: 'include'
+    });
     if (!res.ok) throw new Error("Error loading posts: " + res.status);
 
     const data = await res.json();
@@ -20,13 +22,15 @@ export const fetchPosts = createAsyncThunk(
     const postsWithCategories = await Promise.all(
       posts.map(async (post) => {
         const catRes = await fetch(
-          `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`
-        );
+          `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`, {
+        credentials: 'include'
+      });
         const catData = await catRes.json();
 
         const comRes = await fetch(
-          `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`
-        );
+          `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`, {
+        credentials: 'include'
+      });
         const comData = await comRes.json();
 
         const commentCount = Array.isArray(comData)

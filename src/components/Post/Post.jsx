@@ -1,144 +1,271 @@
-import{ useEffect, useState } from 'react';
-import './Post.css'
+import React, { useEffect, useState } from 'react';
+import './Post.css';
 
 function Post({ postId, onRouteChange, isSignedIn, userId }) {
   const [author, setAuthor] = useState(null);
   const [post, setPost] = useState(null);
-  const [postCats, setPostCats] = useState(null);
-  const [postComments, setPostComments] = useState(null);
-  const [commentCount, setCommentcount] = useState(null);
-  
+  const [postCats, setPostCats] = useState([]);
+  const [postComments, setPostComments] = useState([]);
+  const [commentCount, setCommentCount] = useState(0);
+
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+  const [rating, setRating] = useState(0);
+  const [userLikeType, setUserLikeType] = useState(null);
+
+  // Shorten text content
+  function excerpt(n = 200) {
+    const content = post?.content || '';
+    if (content.length <= n) return content;
+    let cut = content.slice(0, n);
+    const lastSpace = cut.lastIndexOf(' ');
+    if (lastSpace > 0) cut = cut.slice(0, lastSpace);
+    return cut.trim() + '...';
+  }
+
+  // Load post, categories, comments
   useEffect(() => {
     if (!postId) return;
     let cancelled = false;
+
     async function loadPost() {
-      try {                
+      try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`);
         if (!res.ok) throw new Error('Error loading post');
         const data = await res.json();
-        const postData = data.post;
-        
-        // Fetch categories
-        const catRes = await fetch(
-          `${import.meta.env.VITE_API_URL}/posts/${postId}/categories`
-        );
+        const postData = data.post;        
+
+        const catRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/categories`);
         const catData = await catRes.json();
-        
-        // Fetch comments
-        const comRes = await fetch(
-          `${import.meta.env.VITE_API_URL}/posts/${postId}/comments`
-        );
+
+        const comRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/comments`);
         const comData = await comRes.json();
+
+        const count = Array.isArray(comData)
+          ? comData.length
+          : comData.comments?.length || 0;
+
+        const likeRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/like`);
+        if (!likeRes.ok) throw new Error('Failed to fetch likes');
+        const likeData = await likeRes.json();
+
+        console.log(likeData);
         
-        const commentCount = Array.isArray(comData)
-        ? comData.length : comData.comments?.length || 0;
-        
+
+        const likesArr = likeData.likes || [];
+        const likes_count = likesArr.filter(l => l.like_type === 'like').length;
+        const dislikes_count = likesArr.filter(l => l.like_type === 'dislike').length;
+        const newRating = likes_count - dislikes_count;
+
         if (!cancelled) {
           setPost(postData);
-          setCommentcount(commentCount);
-          setPostComments(comData.comments);
-          setPostCats(catData);
+          setLikes(likes_count);
+          setDislikes(dislikes_count);
+          setRating(newRating);
+          setPostCats(catData.categories || catData || []);
+          setPostComments(comData.comments || []);
+          setCommentCount(count);
         }
       } catch (err) {
         console.error('Error loading post:', err);
       }
     }
+
     loadPost();
-    return () => { cancelled = true };
-  },[postId]);
 
+    return () => {
+      cancelled = true;
+    };
+  }, [postId]);
 
+  // Load author
   useEffect(() => {
     if (!post?.author_id) return;
     let cancelled = false;
+
     async function loadAuthor() {
-      try {                
+      try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${post.author_id}`);
         if (!res.ok) throw new Error('Error loading author');
         const data = await res.json();
-        if (!cancelled) setAuthor(data);
-        setAuthor(data);
-        console.log(data)
+        if (!cancelled) setAuthor(data.user || data);
       } catch (err) {
         console.error('Error loading author:', err);
       }
     }
-    loadAuthor();
-    return () => { cancelled = true };
-  },[post?.author_id]);
 
-    // console.log(post)
-  const avatar = author?.picture ? `http://localhost:3001/${author?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'
-  const createdAt = new Date(post?.publish_date).toLocaleDateString();
-  const likes = post?.likes_count || 0;
-  const dislikes = post?.dislikes_count || 0; 
-  const rating = post?.rating || 0;
+    loadAuthor();
+    return () => {
+      cancelled = true;
+    };
+  }, [post?.author_id]);
+
+  // Load user like status
+  useEffect(() => {
+    if (!isSignedIn || !post?.post_id) return;
+
+    async function loadUserLike() {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/like`, {
+          credentials: 'include',
+        });
+        if (!res.ok) throw new Error('Failed to fetch likes');
+        const data = await res.json();
+        const myLike = data.likes?.find(l => l.author_id === userId);
+        if (myLike) setUserLikeType(myLike.type);
+      } catch (err) {
+        console.error('Error loading user like:', err);
+      }
+    }
+
+    loadUserLike();
+  }, [post?.post_id, isSignedIn, userId]);
+
+  // Handle like/dislike
+  async function handleLike(type) {    
+    if (!isSignedIn) {
+      onRouteChange('login');
+      return;
+    }
+
+    try {
+      if (userLikeType === type) {
+        // remove like/dislike
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/like`, {
+          method: 'DELETE',
+          credentials: 'include',
+        });
+        if (!res.ok) throw new Error('Error when deleting a like');
+        setUserLikeType(null);
+      } else {
+      // add or change like/dislike
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/like`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ type }),
+        });
+        console.log(res.json());
+        
+        if (!res.ok) throw new Error('Error sending like');
+        setUserLikeType(type);
+      }      
+
+      // refresh counts
+      const likeRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/like`);
+      if (!likeRes.ok) throw new Error('Failed to fetch likes');
+      const likeData = await likeRes.json();
+
+      const likesArr = likeData.likes || [];
+      const likes_count = likesArr.filter(l => l.like_type === 'like').length;
+      const dislikes_count = likesArr.filter(l => l.like_type === 'dislike').length;
+      const newRating = likes_count - dislikes_count;
+
+      setLikes(likes_count);
+      setDislikes(dislikes_count);
+      setRating(newRating);
+    } catch (err) {
+      console.error(err);
+      alert(err.message || 'Error when changing like');
+    }
+  }
+
+  console.log(userLikeType);
   
+
+  const avatarUrl = author?.picture
+    ? `http://localhost:3001/${author.picture}`
+    : `http://localhost:3001/public/uploads/base_default.png`;
+
+  const createdAt = post?.publish_date
+    ? new Date(post.publish_date).toLocaleDateString()
+    : '';
+
   return (
     <div className="post">
       <div className="post-header">
-        <a  href={`/users/${author?.login}`}
+        <a
+          href={`/users/${author?.login}`}
           onClick={(e) => {
             e.preventDefault();
             onRouteChange(`user:${author?.user_id}`);
           }}
-        >   
-          <img src={avatar}  className="post-avatar" />
+        >
+          <img src={avatarUrl} alt="avatar" className="post-avatar" />
         </a>
         <div className="post-meta">
           <p className="post-author">{author?.login}</p>
           <p className="post-time">{createdAt}</p>
         </div>
-    </div>
+      </div>
 
-    <h3 className="post-title">{post?.title}</h3>
-    <p className="post-content">{post?.content}</p>
+      <h3 className="post-title">{post?.title}</h3>
+      <p className="post-content">{excerpt()}</p>
 
-    <div className="bage">
-      {(postCats && postCats.length > 0 ? postCats : [{ title: 'no-category', id: 'none' }]).map(cat => (
-        <span key={cat.id} className="category-badge">{cat.title}</span>
-      ))}
-    </div>
+      <div className="badge-container">
+        {postCats.length > 0
+          ? postCats.map(cat => (
+              <span key={cat.id} className="category-badge">{cat.title}</span>
+            ))
+          : (<span className="category-badge">no-category</span>)
+        }
+      </div>
 
       <div className="post-stats">
         <div className="stat-item" title="Likes">
-            <i className="fa-solid fa-heart" style={{ color: '#cf741aff' }}></i>
-            {likes}
+          <i
+            onClick={() => handleLike('like')}
+            className={`fa-solid fa-heart ${userLikeType === 'like' ? 'liked' : ''}`}
+            style={{
+              color: userLikeType === 'like' ? '#cf741a' : '#d5505eff',
+              cursor: 'pointer',
+            }}
+          ></i>
+          {likes}
         </div>
 
         <div className="stat-item" title="Dislikes">
-            <i className="fa-solid fa-heart-crack" style={{ color: '#e42b3eff' }}></i>
-            {dislikes}
+          <i
+            onClick={() => handleLike('dislike')}
+            className={`fa-solid fa-heart-crack ${userLikeType === 'dislike' ? 'disliked' : ''}`}
+            style={{
+              color: userLikeType === 'dislike' ? '#b30000' : '#470d13ff',
+              cursor: 'pointer',
+            }}
+          ></i>
+          {dislikes}
         </div>
 
         <div className="stat-item" title="Rating">
-            <i className="fa-solid fa-star" style={{ color: '#f5c518' }}></i>
-            {rating}
+          <i className="fa-solid fa-star" style={{ color: '#f5c518' }}></i>
+          {rating}
         </div>
-          <div className="stat-item" title="comment">
-            <i className="fa-solid fa-message" style={{ color: '#1870f5ff' }}></i>
-            {commentCount}
+
+        <div className="stat-item" title="Comments">
+          <i className="fa-solid fa-comment" style={{ color: '#908659ff' }}></i>
+          {commentCount}
         </div>
       </div>
-        <div className='comment'>
-            {Array.isArray(postComments) &&
-              postComments.map((comment) => (
-                <div key={comment.comment_id}>
-                  {comment.content}
-                  <div className="stat-item-com" title="Likes">
-                  <i className="fa-solid fa-heart" style={{ color: '#cf741aff' }}></i>
-                  {likes}
-              </div>
 
-              <div className="stat-item-com" title="Dislikes">
-                  <i className="fa-solid fa-heart-crack" style={{ color: '#e42b3eff' }}></i>
-                  {dislikes}
-              </div>
-                </div>
-              ))}
-        </div>
+      <div className="comment-section">
+        {postComments && postComments.map(comment => (
+          <div key={comment.comment_id} className="comment-item">
+            <p>{comment.content}</p>
+            <div className="stat-item-com" title="Likes">
+              <i className="fa-solid fa-heart" style={{ color: '#cf741aff' }}></i>
+              {comment.likes_count || 0}
+            </div>
+            <div className="stat-item-com" title="Dislikes">
+              <i className="fa-solid fa-heart-crack" style={{ color: '#e42b3eff' }}></i>
+              {comment.dislikes_count || 0}
+            </div>
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }
 
 export default Post;
+

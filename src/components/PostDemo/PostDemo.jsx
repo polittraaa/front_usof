@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import './PostDemo.css';
 
-function PostDemo({ post, isSignedIn, onOpen }) {
+function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
   const [author, setAuthor] = useState(null);
-  const [isLiked, setIsLiked] = useState(false);
-  const [likes, setLikes] = useState(post.likes_count || 0);
 
-  // Shorten text content
+  // Shorten content
   function excerpt(n = 200) {
     const short = post.content || '';
     if (short.length <= n) return short;
@@ -20,9 +18,12 @@ function PostDemo({ post, isSignedIn, onOpen }) {
   useEffect(() => {
     if (!post.author_id) return;
     let cancelled = false;
+
     async function loadAuthor() {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${post.author_id}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${post.author_id}`, {
+          credentials: 'include',
+        });
         if (!res.ok) throw new Error('Error loading author');
         const data = await res.json();
         if (!cancelled) setAuthor(data);
@@ -30,57 +31,34 @@ function PostDemo({ post, isSignedIn, onOpen }) {
         console.error('Error loading author:', err);
       }
     }
+
     loadAuthor();
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [post.author_id]);
 
-  // function likecheck{}
+  const likes_count = post?.likes_count;
+  const dislikes_count = post?.dislikes_count;
+  const rating = post?.rating;
 
-  // Like/Unlike handler
-  async function handleLike() {
-    try {
-      if (!isSignedIn) throw new Error('Sign in to like');
-       const url = `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/like`;
-      if (!isLiked) {
-       const res = await fetch(url, { method: 'POST', credentials: 'include' });
-       console.log(res);
-       
-        if (!res.ok) throw new Error('Could not like');
-        setLikes((prev) => prev + 1);
-        setIsLiked(true);
-      } else {
-        const res = await fetch(url, { method: 'DELETE', credentials: 'include' });
-        if (!res.ok) throw new Error('Could not unlike');
-        setLikes((prev) => Math.max(prev - 1, 0));
-        setIsLiked(false);
-      }
-    } catch (err) {
-      console.error('Error liking post:', err);
-    }
-  }
-
-  // Values for UI
-  const createdAt = new Date(post.publish_date).toLocaleDateString();
+  const createdAt = post.publish_date
+    ? new Date(post.publish_date).toLocaleDateString()
+    : '';
   const avatar = author?.picture
     ? `http://localhost:3001/${author.picture}`
     : 'http://localhost:3001/public/uploads/base_default.png';
-  const dislikes = post.dislikes_count || 0;
-  const rating = post.rating || 0;
   const commentsCount = post.commentCount || 0;
 
   return (
     <div className="demo">
       <div className="demo-header">
-        {/* <img src={avatar} className="demo-avatar" /> */}
-        <a  href={`/users/${author?.login}`}
+        <a
+          href={`/users/${author?.login}`}
           onClick={(e) => {
             e.preventDefault();
             onRouteChange(`user:${author?.user_id}`);
           }}
-        >   
-          <img src={avatar}  className="demo-avatar" />
+        >
+          <img src={avatar} className="demo-avatar" />
         </a>
         <div className="demo-meta">
           <span className="demo-author">{author?.login}</span>
@@ -114,34 +92,43 @@ function PostDemo({ post, isSignedIn, onOpen }) {
       <div className="demo-stats">
         <div className="stat-item" title="Likes">
           <i
-            onClick={handleLike}
-            className={`fa-solid fa-heart ${isLiked ? 'liked' : ''}`}
+            // onClick={() => handleLike('like')}
+            className='fa-solid fa-heart'
             style={{
-              color: isLiked ? '#cf741a' : '#e42b3e',
+              // color: userLikeType === 'like' ? '#cf741a' : '#d5505eff',
+              color: '#d5505eff',
               cursor: 'pointer',
               transition: 'transform 0.2s',
             }}
           ></i>
-          {likes}
+          {likes_count}
         </div>
 
         <div className="stat-item" title="Dislikes">
-          <i className="fa-solid fa-heart-crack" style={{ color: '#470d13ff' }}></i>
-          {dislikes}
+          <i
+            // onClick={() => handleLike('dislike')}
+            className='fa-solid fa-heart-crack'
+            style={{ 
+              // color: userLikeType === 'dislike' ? '#cf741a' : '#470d13ff',
+              color: '#470d13ff',
+              cursor: 'pointer',
+              transition: 'transform 0.2s', }}
+          ></i>
+          {dislikes_count}
         </div>
 
         <div className="stat-item" title="Rating">
-          <i className="fa-solid fa-star" style={{ color: '#f5c518' }}></i>
+          <i className="fa-solid fa-star" style={{ color: '#f5c118ff' }}></i>
           {rating}
         </div>
 
         <div className="stat-item" title="Comments">
-          <i className="fa-solid fa-comment" style={{ color: '#6870d8ff' }}></i>
+          <i className="fa-solid fa-comment" style={{ color: '#b09961ff' }}></i>
           {commentsCount}
         </div>
 
         <div className="stat-item" title="Save">
-          <i className="fa-solid fa-bookmark" style={{ color: '#79d868ff' }}></i>
+          <i className="fa-solid fa-bookmark" style={{ color: '#908659ff' }}></i>
         </div>
       </div>
     </div>

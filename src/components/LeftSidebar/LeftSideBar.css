@@ -9,7 +9,7 @@
     margin-right: 0;
     min-height: 100vh;
     border-right: 1px solid rgb(193 124 74);
-    background-color: #f0ece7;
+    background-color: #8c9381;
     width: 20%; 
     position: fixed; 
     left: 0; 
@@ -30,16 +30,16 @@
 .left-sidebar-links-container {
     display: flex;
     flex-direction: column;
-    justify-content:flex-start;
+    justify-content: center;
     margin-bottom: 2rem;
     padding-bottom: 2px;
 }
 
 .left-sidebar-link {
-    color: rgb(135, 65, 65);
+    color: rgb(231, 220, 206);
     cursor: pointer;
     font-size: 28px;
 }
 .left-sidebar-link:hover{
-    background-color: #ede7e0;
+    background-color: #a1af9f;
 }

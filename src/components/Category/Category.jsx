@@ -1,6 +1,6 @@
 import './Category.css'
 
-function Category({ name, description, onClick }) {
+function Category({ name, description, onOpen, catId}) {
     function excerpt(n = 100) {
     const short = description || '';
     if (short.length <= n) return short;
@@ -12,7 +12,7 @@ function Category({ name, description, onClick }) {
     return (
         <div
             className="cat-card pointer"
-            // onClick={posts}
+            onClick={() => onOpen(catId)}
         >
             <h3 className='cat-name'>{name}</h3>
             <p className='cat-name'>{excerpt()}</p>

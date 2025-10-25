@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import './Card.css'
 
 function Card({ post, onOpen }) {
   const [author, setAuthor] = useState(null);
@@ -30,17 +31,12 @@ function Card({ post, onOpen }) {
   if (!post) return <p>No hot topics available.</p>;
 
   const createdAt = new Date(post.publish_date).toLocaleDateString();
-  const avatar = author?.picture
-    ? `http://localhost:3001/${author.picture}`
-    : "http://localhost:3001/public/uploads/base_default.png";
-
   const rating = post.rating?.value || 0;
   const commentsCount = post.commentCount || 0;
 
   return (
     <div className="card">
       <div className="demo-header">
-        {/* <img src={avatar} className="demo-avatar" alt="avatar" /> */}
         <div className="demo-meta">
           <span className="demo-author">{author?.login || "Unknown"}</span>
           <span className="demo-time">{createdAt}</span>
@@ -77,10 +73,6 @@ function Card({ post, onOpen }) {
         <div className="stat-item" title="Comments">
           <i className="fa-solid fa-comment" style={{ color: "#6870d8ff" }}></i>
           {commentsCount}
-        </div>
-
-        <div className="stat-item" title="Save">
-          <i className="fa-solid fa-bookmark" style={{ color: "#479f71ff" }}></i>
         </div>
       </div>
     </div>

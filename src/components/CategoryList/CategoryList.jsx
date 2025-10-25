@@ -6,7 +6,9 @@ export default function CategoriesPage({ onRouteChange }) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {        
-        fetch(`${import.meta.env.VITE_API_URL}/categories`)
+        fetch(`${import.meta.env.VITE_API_URL}/categories`, {
+          credentials: 'include',
+        })
             .then(res => res.json())
             .then(data => {
                 if (data.cat) setCategories(data.cat);
@@ -14,7 +16,12 @@ export default function CategoriesPage({ onRouteChange }) {
             })
             .catch(err => console.error('Error loading categories:', err));
     }, []);
-
+  
+  function openCat(id) {
+    // link apdate
+    // window.history.pushState({}, '', `/posts/${id}`);
+    onRouteChange(`category:${id}`);
+  }
   return (
     <div className="tags-page">
       <h1 className="page-title">All Categories</h1>
@@ -27,7 +34,9 @@ export default function CategoriesPage({ onRouteChange }) {
                 key={category.category_id}
                 name={category.title}
                 description={category.category_description}
-                onClick={() => onRouteChange(`category:${category.category_id}`)}
+                onOpen={openCat} 
+                catId={category.category_id}
+                // onRouteChange={onRouteChange}
             />
         ))}
       </div>

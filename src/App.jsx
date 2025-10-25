@@ -11,6 +11,7 @@ import UserPage from './components/UserPage/UserPage'
 import Post from './components/Post/Post'
 import CreatePost from './components/CreatePost/CreatePost'
 import CategoryPage from './components/CategoryPage/CategoryPost'
+import EditProfile from './components/EditProfile/EditProfile'
 
 import Navigation from './components/Navigation/Navigation'
 import LeftSidebar from './components/LeftSidebar/LeftSidebar'
@@ -55,7 +56,7 @@ function App() {
   const authRoutes = ['login', 'register', 'verify-email', 'password-reset'];
 
   const routes = { 
-    home: <Content onRouteChange={onRouteChange} isSignedIn={isSignedIn}/>,
+    home: <Content onRouteChange={onRouteChange} isSignedIn={isSignedIn} userId={loggedUserId}/>,
     login: <Login onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     register: <Register onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     about: <About onRouteChange={onRouteChange}/>,
@@ -76,6 +77,8 @@ function App() {
   } else if (route.startsWith('category:')) {
     const catId = route.split(':')[1];
     mainContent = <CategoryPage catId={catId} userId={loggedUserId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} />;
+  } else if (route.startsWith('edit-profile/')) {
+    mainContent = <EditProfile onRouteChange={onRouteChange} currentUserId={userId} />;
   } else {
     mainContent = routes[route] || routes.home;
   }
@@ -87,9 +90,10 @@ function App() {
     <div className='page'>
       <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} route={route} userId={loggedUserId} />
 
-      <div className="main" style={{ flex: 1 }}>
+      {/* <div className="main" style={{ flex: 1 }}> */}
+       <div className="main">
         {!authRoutes.includes(route) && (
-            <LeftSidebar onRouteChange={onRouteChange} />
+            <LeftSidebar onRouteChange={onRouteChange} isSignedIn={isSignedIn} userId={loggedUserId} />
         )}
         <div className="main-content">
           {mainContent}

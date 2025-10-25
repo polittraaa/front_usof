@@ -5,7 +5,7 @@ import './Content.css';
 
 import { fetchPosts } from "/src/store/PostFetch.js";
 
-function Content({ onRouteChange, isSignedIn }) {
+function Content({ onRouteChange, isSignedIn, userId }) {
   const dispatch = useDispatch();
 
   const {items: posts, status, error, totalPages } = useSelector(
@@ -15,12 +15,9 @@ function Content({ onRouteChange, isSignedIn }) {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState("rating"); 
   const [order, setOrder] = useState("desc");
-  // const pageSize = 5;
-
-  console.log(page);
   
   useEffect(() => {
-   dispatch(fetchPosts({ page, sort, order }))
+    dispatch(fetchPosts({ page, sort, order }))
   }, [page, sort, order, dispatch]);
 
   
@@ -68,7 +65,7 @@ function Content({ onRouteChange, isSignedIn }) {
 
       <div className="post-list">
         {posts.map(post => (
-          <PostDemo key={post.post_id} post={post} isSignedIn={isSignedIn} onOpen={openPost} />
+          <PostDemo key={post.post_id} post={post} isSignedIn={isSignedIn} onOpen={openPost} onRouteChange={onRouteChange} userId={userId}/>
         ))}
       </div>
       
@@ -80,7 +77,6 @@ function Content({ onRouteChange, isSignedIn }) {
             </button>
           <span style={{ margin: '0 0.5rem' }}>page {page} from {totalPages}</span>
           <button className="arrow" onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages}>
-            {console.log(page)}
             →
           </button>
         </div>

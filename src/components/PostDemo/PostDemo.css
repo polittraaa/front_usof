@@ -10,6 +10,11 @@
     text-decoration: none;
 }
 
+.demo a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .demo:hover {
     box-shadow: 0 4px 12px rgba(233, 233, 233, 0.1);
     cursor: pointer;
@@ -47,23 +52,23 @@
 
 .demo-title {
     font-size: 1.25rem;
+    color: #2a2828;
     font-weight: 700;
     margin: 0.25rem 0;
     display: flex;
     text-decoration: none;
     flex-direction: start;
-    text-decoration: none;
+
 }
 
 .demo-excerpt {
     font-size: 0.95rem;
-    color: #444;
+    color: #3f3a3a;
     line-height: 1.4;
     margin-bottom: 0.5rem;
     text-decoration: none;
     display: flex;
     flex-direction: start;
-    text-decoration: none;
 }
 
 .demo-stats {

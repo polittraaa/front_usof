@@ -126,6 +126,6 @@
     align-items: center; 
     gap: 0.6em; 
     justify-content: space-between;
-    min-width: 15%;
+    min-width: 10%;
     width: fit-content;
 }

@@ -2,8 +2,9 @@
     background-color: #fff;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    padding: 1.5rem 2rem;
-    margin: 1.5rem auto;
+    padding: 1rem 2rem;
+    margin-top: 5em;
+    margin-bottom: 2em;
     width: 90%;
     /* display: flex; */
     transition: transform 0.2s ease, box-shadow 0.2s ease;

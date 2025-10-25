@@ -19,11 +19,16 @@ function RightSidebar({ onRouteChange }) {
       }
     }, [status, dispatch]);
     
-    // Top 3 hot topics
   const hotTopics = (posts || [])
-    .filter(p => p.rating?.value)       // keep only posts with rating
-    .sort((a, b) => b.rating.value - a.rating.value)
-    .slice(0, 3);
+  .filter(p => typeof p?.rating === 'number')
+  .sort((a, b) => {
+    if (b.rating === a.rating) {
+      return b.commentsCount - a.commentsCount;
+    }
+    return b.rating - a.rating;
+  })
+  .slice(0, 3);
+
 
     console.log(hotTopics)
 
@@ -33,13 +38,11 @@ function RightSidebar({ onRouteChange }) {
     onRouteChange(`post:${id}`);
   }
 
-
-
   return(
     <div className="right-bar">
       <h1>Hot Topics</h1>
         <div>
-          <div className="post-list mb5">
+          <div className="post-list">
             {hotTopics.map(post => (
               <Card key={post.post_id} post={post} onOpen={openPost} />
             ))}

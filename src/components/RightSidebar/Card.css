@@ -1,0 +1,104 @@
+/* Card Container */
+.card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    width: 90%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card a{
+    text-decoration: none;
+    color: inherit;
+}
+/* Header */
+.demo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.demo-meta {
+    display: flex;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.demo-author {
+    font-weight: 600;
+}
+
+.demo-time {
+    font-style: italic;
+}
+
+/* Title */
+.demo-title {
+    font-size: 1.2rem;
+    margin: 8px 0;
+    color: #333;
+    cursor: pointer;
+}
+
+.demo-title:hover {
+    color: #ff9500;
+}
+
+/* Categories */
+.bage {
+    margin: 8px 0;
+}
+
+.category-badge {
+    background-color: #eee;
+    color: #333;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 8px;
+    margin-right: 4px;
+    display: inline-block;
+}
+
+/* Stats */
+.demo-stats {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Rating Popup */
+.stat-item i {
+    position: relative;
+}
+
+.stat-item i:hover::after {
+    content: attr(data-rank);
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffdd57;
+    color: #333;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}

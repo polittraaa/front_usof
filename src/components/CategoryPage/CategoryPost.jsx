@@ -1,88 +1,95 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import PostDemo from '../PostDemo/PostDemo';
 
-import { fetchPosts } from "/src/store/PostFetch.js";
-
 export default function CategoryPage({ catId, onRouteChange }) {
-//    const fetchPosts = createAsyncThunk(
-//   "posts/fetchPosts",
-//   async ({page = 1, sort = "rating", order = "desc", filters = {}} ={}, { getState }) => {
-   
-//     const limit = 5;
-//     const offset = (page - 1) * limit;
-    
-//     let query = `?page=${page}&limit=${limit}&sort=${sort}&order=${order}`;
-//     if (filters.status) query += `&status=${filters.status}`;
-//     if (filters.categories?.length) query += `&categories=${filters.categories.join(",")}`;
-    
-//     const res = await fetch(`${import.meta.env.VITE_API_URL}/posts${query}`);
-//     if (!res.ok) throw new Error("Error loading posts: " + res.status);
-
-//     const data = await res.json();
-//     const posts = Array.isArray(data.posts.posts) ? data.posts.posts : [];
-
-//     const postsWithCategories = await Promise.all(
-//       posts.map(async (post) => {
-//         const catRes = await fetch(
-//           `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`
-//         );
-//         const catData = await catRes.json();
-
-//         const comRes = await fetch(
-//           `${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`
-//         );
-//         const comData = await comRes.json();
-
-//         const commentCount = Array.isArray(comData)
-//           ? comData.length
-//           : comData.comments?.length || 0;
-
-//         return {
-//           ...post,
-//           categories: catData,
-//           comments: comData,
-//           commentCount,
-//         };
-//       })
-//     );
-
-//     return {
-//       posts: postsWithCategories,
-//       totalPages: data.page_count,
-//     };
-//   }
-// );
-  const dispatch = useDispatch();
-
-  const { items: posts, status, error, totalPages } = useSelector(
-    (state) => state.posts
-  );
-
+  const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchPosts({
-        page,
-        filters: { categories: [catId] }
-        }));   
-    }, [dispatch, catId, page]);
+    if (!catId) return;
+
+    const fetchCategoryPosts = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const limit = 5;
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/categories/${catId}/posts`, {
+          credentials: 'include',
+        });
+
+        if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+
+        const data = await res.json();
+
+        const rawPosts = Array.isArray(data.posts?.posts)
+          ? data.posts.posts
+          : [];
+
+        if (rawPosts.length != 0){
+        // Fetch categories and comments for each post
+        const postsWithExtras = await Promise.all(
+          rawPosts.map(async (post) => {
+            const [catRes, comRes] = await Promise.all([
+              fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`),
+              fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`)
+            ]);
+
+            const catData = await catRes.json();
+            const comData = await comRes.json();
+
+            const commentCount = Array.isArray(comData)
+              ? comData.length
+              : comData.comments?.length || 0;
+
+            return {
+              ...post,
+              categories: catData,
+              comments: comData,
+              commentCount,
+            };
+          })
+        );
+      
+        setPosts(postsWithExtras);
+        setTotalPages(data.page_count || 1);
+      }
+      elase (
+        <p>No posts found.</p>
+      )
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategoryPosts();
+  }, [catId, page]);
 
   const openPost = (postId) => {
     onRouteChange(`post:${postId}`);
   };
 
-  const loading = status === "loading";
   return (
-    <>
+    <div className="category-page">
       <h2>Posts in Category #{catId}</h2>
 
       {loading && <p>Loading posts...</p>}
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}
 
       <div className="post-list mb5">
-         {catPosts.map((post) => (
-          <PostDemo key={post.post_id} post={post} onOpen={() => openPost(post.post_id)} />
+        {!loading && posts.length === 0 && <p>No posts found.</p>}
+        {posts.map((post) => (
+          <PostDemo
+            key={post.post_id}
+            post={post}
+            onOpen={() => openPost(post.post_id)}
+          />
         ))}
       </div>
 
@@ -96,7 +103,7 @@ export default function CategoryPage({ catId, onRouteChange }) {
             ←
           </button>
           <span style={{ margin: '0 0.5rem' }}>
-            page {page} of {totalPages}
+            Page {page} of {totalPages}
           </span>
           <button
             className="arrow"
@@ -107,6 +114,6 @@ export default function CategoryPage({ catId, onRouteChange }) {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
