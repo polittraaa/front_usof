@@ -46,7 +46,7 @@ function UserPage({ authorId, userId, onRouteChange, isSignedIn}) {
     }
     loadAuthor();
     return () => { cancelled = true };
-  },[authorId]);
+  } ,[authorId]);
 
   const userPosts = posts.filter(p => p.author_id === Number(authorId));
   // console.log(userPosts)
@@ -75,11 +75,13 @@ function UserPage({ authorId, userId, onRouteChange, isSignedIn}) {
           <p className="user-member">Member since {memberSince}</p>
           <p className="user-name">{author?.login}</p>
           <p className="user-name">{author?.full_name}</p>
-          <p className="user-name">{author?.role}</p>
-          <p className="user-name">
-            <i className="fa-solid fa-star" style={{ color: '#f5c518' }}></i>
-            {author?.rating}
-          </p>
+          <div style={{display: 'flex', gap: '2em'}}>
+            <p className="user-name">{author?.role}</p>
+            <p className="user-name">
+              <i className="fa-solid fa-star" style={{ color: '#010101ff' }}></i>
+              {author?.rating}
+            </p>
+          </div>
 
           {isOwnProfile && (
             <>

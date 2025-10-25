@@ -6,6 +6,7 @@ import ConfirmEmail from './components/ConfirmEmail/ConfirmEmail'
 import PasswordReset from './components/PasswordReset/PasswordReset'
 import About from './components/About/About'
 
+import UserList from './components/UserList/UserList'
 import CategoriesPage from './components/CategoryList/CategoryList'
 import UserPage from './components/UserPage/UserPage'
 import Post from './components/Post/Post'
@@ -61,11 +62,15 @@ function App() {
     register: <Register onRouteChange={onRouteChange} onLoginSuccess={onLoginSuccess} />, 
     about: <About onRouteChange={onRouteChange}/>,
     categories: <CategoriesPage onRouteChange={onRouteChange}/>,
+    userList: <UserList onRouteChange={onRouteChange}/>,
     'verify-email': <ConfirmEmail onRouteChange={onRouteChange} />, 
     'password-reset': <PasswordReset token={passwordResetToken} />,
     'create-post': <CreatePost onRouteChange={onRouteChange} userId={loggedUserId} />,
     userPage: <UserPage currentUserId={loggedUserId} onRouteChange={onRouteChange} />
   };
+
+  console.log(route);
+  
 
   let mainContent;
   if (route.startsWith('post:')) {

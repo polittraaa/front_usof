@@ -6,9 +6,12 @@
     margin-top: 5em;
     margin-bottom: 2em;
     width: 90%;
-    /* display: flex; */
+    display: flex;
+    flex-direction: column;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     text-decoration: none;
+    justify-content: left;
+    text-align: left;
 
 }
 
@@ -127,5 +130,11 @@
 }
 
 .stat-item-com {
-  
+  margin-inline: 0.5em;
+}
+
+.comment-likes{
+    display: flex;
+    justify-content: end;
+    margin-right: 2em;
 }

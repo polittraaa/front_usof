@@ -60,15 +60,10 @@ function LeftSidebar({ onRouteChange, isSignedIn, userId }) {
         {/* Conditional rendering for admin */}
         {user?.role === 'admin' && (
           <>
+            <a href="http://localhost:3001/admin/" className="left-sidebar-link"> Admin Panel</a>
             <span 
               className="left-sidebar-link"
-              onClick={() => onRouteChange('adminpanel')}
-            >
-              Admin Panel
-            </span>
-            <span 
-              className="left-sidebar-link"
-              onClick={() => onRouteChange('users')}
+              onClick={() => onRouteChange('userList')}
             >
               User List
             </span>

@@ -13,15 +13,20 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
   const [rating, setRating] = useState(0);
   const [userLikeType, setUserLikeType] = useState(null);
 
-  // Shorten text content
-  function excerpt(n = 200) {
-    const content = post?.content || '';
-    if (content.length <= n) return content;
-    let cut = content.slice(0, n);
-    const lastSpace = cut.lastIndexOf(' ');
-    if (lastSpace > 0) cut = cut.slice(0, lastSpace);
-    return cut.trim() + '...';
-  }
+  //for comm 
+  const [showCommentForm, setShowCommentForm] = useState(false);
+  const [newComment, setNewComment] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+  // // Shorten text content
+  // function excerpt(n = 200) {
+  //   const content = post?.content || '';
+  //   if (content.length <= n) return content;
+  //   let cut = content.slice(0, n);
+  //   const lastSpace = cut.lastIndexOf(' ');
+  //   if (lastSpace > 0) cut = cut.slice(0, lastSpace);
+  //   return cut.trim() + '...';
+  // }
 
   // Load post, categories, comments
   useEffect(() => {
@@ -48,9 +53,6 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
         const likeRes = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/like`);
         if (!likeRes.ok) throw new Error('Failed to fetch likes');
         const likeData = await likeRes.json();
-
-        console.log(likeData);
-        
 
         const likesArr = likeData.likes || [];
         const likes_count = likesArr.filter(l => l.like_type === 'like').length;
@@ -170,9 +172,43 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
     }
   }
 
-  console.log(userLikeType);
-  
+  async function handleSubmitComment() {
+  if (!isSignedIn) {
+    onRouteChange('login');
+    return;
+  }
 
+  if (!newComment.trim()) return alert('Comment cannot be empty.');
+
+  setSubmitting(true);
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/comments`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        content: newComment,
+        user_id: userId, // optional if backend takes from session
+      }),
+    });
+
+    if (!res.ok) throw new Error('Failed to post comment');
+
+    const data = await res.json();
+
+    // Add the new comment to state instantly
+    setPostComments(prev => [data.comment || data, ...prev]);
+    setCommentCount(prev => prev + 1);
+    setNewComment('');
+    setShowCommentForm(false);
+  } catch (err) {
+    console.error(err);
+    alert(err.message || 'Error posting comment');
+  } finally {
+    setSubmitting(false);
+  }
+}
+  
   const avatarUrl = author?.picture
     ? `http://localhost:3001/${author.picture}`
     : `http://localhost:3001/public/uploads/base_default.png`;
@@ -200,7 +236,7 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
       </div>
 
       <h3 className="post-title">{post?.title}</h3>
-      <p className="post-content">{excerpt()}</p>
+      <p className="post-content">{post?.content}</p>
 
       <div className="badge-container">
         {postCats.length > 0
@@ -245,19 +281,48 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
           <i className="fa-solid fa-comment" style={{ color: '#908659ff' }}></i>
           {commentCount}
         </div>
+        
+        <button
+          type="button"
+          className="add-comment-btn"
+          onClick={() => setShowCommentForm(!showCommentForm)}
+        >
+          <i className="fa-solid fa-comment" style={{ color: '#b09961ff' }}></i> +
+        </button>
       </div>
 
       <div className="comment-section">
+        {showCommentForm && (
+          <div className="comment-form">
+            <textarea
+              className="input-field"
+              rows="3"
+              placeholder="Write your comment..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            ></textarea>
+            <button
+              className="submit-comment-btn"
+              onClick={handleSubmitComment}
+              disabled={submitting}
+            >
+              {submitting ? 'Posting...' : 'Submit'}
+            </button>
+          </div>
+        )}
+
         {postComments && postComments.map(comment => (
           <div key={comment.comment_id} className="comment-item">
             <p>{comment.content}</p>
-            <div className="stat-item-com" title="Likes">
-              <i className="fa-solid fa-heart" style={{ color: '#cf741aff' }}></i>
-              {comment.likes_count || 0}
-            </div>
-            <div className="stat-item-com" title="Dislikes">
-              <i className="fa-solid fa-heart-crack" style={{ color: '#e42b3eff' }}></i>
-              {comment.dislikes_count || 0}
+            <div className="comment-likes">
+              <div className="stat-item-com" title="Likes">
+                <i className="fa-solid fa-heart" style={{ color: '#cf741aff' }}></i>
+                {comment.likes_count || 0}
+              </div>
+              <div className="stat-item-com" title="Dislikes">
+                <i className="fa-solid fa-heart-crack" style={{ color: '#e42b3eff' }}></i>
+                {comment.dislikes_count || 0}
+              </div>
             </div>
           </div>
         ))}

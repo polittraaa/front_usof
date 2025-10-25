@@ -19,8 +19,8 @@ function CreatePost({ onRouteChange, userId }) {
         });
         if (res.ok) {
           const data = await res.json();
-          console.log("Fetched categories:", data);
-          setAllCategories(data);
+          console.log("Fetched categories:", data.cat);
+          setAllCategories(data.cat);
         } else {
           console.error("Failed to fetch categories");
         }
