@@ -26,8 +26,8 @@ export default function CategoryPage({ catId, onRouteChange }) {
 
         const data = await res.json();
 
-        const rawPosts = Array.isArray(data.posts?.posts)
-          ? data.posts.posts
+        const rawPosts = Array.isArray(data.cat)
+          ? data.cat
           : [];
 
         if (rawPosts.length != 0){
@@ -54,7 +54,7 @@ export default function CategoryPage({ catId, onRouteChange }) {
             };
           })
         );
-      
+              
         setPosts(postsWithExtras);
         setTotalPages(data.page_count || 1);
       }
