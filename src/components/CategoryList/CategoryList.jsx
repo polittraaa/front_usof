@@ -22,6 +22,7 @@ export default function CategoriesPage({ onRouteChange }) {
     // window.history.pushState({}, '', `/posts/${id}`);
     onRouteChange(`category:${id}`);
   }
+
   return (
     <div className="tags-page">
       <h1 className="page-title">All Categories</h1>
@@ -36,7 +37,7 @@ export default function CategoriesPage({ onRouteChange }) {
                 description={category.category_description}
                 onOpen={openCat} 
                 catId={category.category_id}
-                // onRouteChange={onRouteChange}
+                onRouteChange={onRouteChange}
             />
         ))}
       </div>

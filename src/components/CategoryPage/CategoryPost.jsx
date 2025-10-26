@@ -58,7 +58,7 @@ export default function CategoryPage({ catId, onRouteChange }) {
         setPosts(postsWithExtras);
         setTotalPages(data.page_count || 1);
       }
-      elase (
+      else (
         <p>No posts found.</p>
       )
       } catch (err) {

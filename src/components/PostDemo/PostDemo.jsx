@@ -125,19 +125,6 @@ function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
                     minWidth: '150px'
                   }}
                 >
-                {/* <div
-                  className="menu-item"
-                  onClick={() => onRouteChange(`editpost/${post.id}`)}
-                  style={{
-                    padding: '0.5rem 1rem',
-                    cursor: 'pointer',
-                    borderBottom: '1px solid #eee'
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.background = '#f5f5f5'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'white'}
-                >
-                  <i className="fa-solid fa-pen" style={{ marginRight: '6px' }}></i> Edit
-                </div> */}
                   <div
                     className="menu-item"
                     onClick={handleDelete}
