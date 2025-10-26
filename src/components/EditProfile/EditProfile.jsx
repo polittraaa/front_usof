@@ -57,57 +57,119 @@ function EditProfile({ currentUserId, onRouteChange }) {
         window.history.pushState({}, "", `/profile/${currentUserId}`);
         onRouteChange(`profile:${currentUserId}`);
       }, 1500);
-    } catch (err) {
-      setError(err.message);
+        } catch (err) {
+            setError(err.message);
+        }
     }
-  }
 
-  async function handleAvatarChange(e) {
-    const file = e.target.files[0];
-    if (!file) return;
+    async function handleAvatarChange(e) {
+        const file = e.target.files[0];        
+        if (!file) return;
 
-    setPreview(URL.createObjectURL(file));
+        setPreview(URL.createObjectURL(file));
 
-    const formData = new FormData();
-    formData.append("avatar", file);
+        const formData = new FormData();
+        formData.append("avatar", file);
 
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/users/avatar`, {
-        method: "PATCH",
-        body: formData,
-        credentials: "include",
-      });
+        try {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/users/avatar`, {
+                method: "PATCH",
+                body: formData,
+                credentials: "include",
+            });
 
-      if (!res.ok) throw new Error("Failed to upload avatar");
+            if (!res.ok) throw new Error("Failed to upload avatar");
 
-      const updated = await res.json();
-      setUser((prev) => ({ ...prev, profile_picture: updated.profile_picture }));
-    } catch (err) {
-      setError(err.message);
+            const updated = await res.json();
+            setUser(prev => ({ ...prev, profile_picture: updated.profile_picture }));
+        } catch (err) {
+            setError(err.message);
+        }
     }
-  }
 
-  if (loading) {
-    return (
-      <div className="messages">
-        Loading...
-      </div>
-    );
-  }
+    if (loading) {
+        return (
+            <div className="tc mt5 f4 messages">
+                <div 
+                    className="flex"
+                    style={{ 
+                        gap: '1rem',
+                        marginRight: '2rem'
+                    }}
+                >
+                    {/* back */}
+                    <div 
+                        className="pointer flex items-center justify-center"
+                        style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            backgroundColor: '#f0f0f0',
+                            transition: 'background 0.2s',
+                            marginRight: '1.5rem',
+                            marginLeft: '1rem',
+                        }}
+                        onClick={() => { 
+                            window.history.pushState({}, '', '/'); 
+                            onRouteChange('home'); 
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.backgroundColor = '#e0e0e0'}
+                        onMouseLeave={e => e.currentTarget.style.backgroundColor = '#f0f0f0'}
+                    >
+                        <i className="fa-solid fa-arrow-left"></i>
+                    </div>
+                </div>
+                
+                Loading...
+            </div>
+        );
+    }
 
-  if (!user) {
-    return (
-      <div className="messages">
-        User not found
-      </div>
-    );
-  }
+    if (!user) {
+        return (
+            <div className="tc mt5 f4 messages">
+                <div 
+                    className="flex"
+                    style={{ 
+                        gap: '1rem',
+                        marginRight: '2rem'
+                    }}
+                >
+                    {/* Кнопка "назад" */}
+                    <div 
+                        className="pointer flex items-center justify-center"
+                        style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            backgroundColor: '#f0f0f0',
+                            transition: 'background 0.2s',
+                            marginRight: '1.5rem',
+                            marginLeft: '1rem',
+                        }}
+                        onClick={() => { 
+                            window.history.pushState({}, '', '/'); 
+                            onRouteChange('home'); 
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.backgroundColor = '#e0e0e0'}
+                        onMouseLeave={e => e.currentTarget.style.backgroundColor = '#f0f0f0'}
+                    >
+                        <i className="fa-solid fa-arrow-left"></i>
+                    </div>
+                </div>
+                
+                User not found
+            </div>
+        );
+    }
 
-  const avatarUrl = preview
-    ? preview
-    : user.picture
-    ? `http://localhost:3001/${user.picture}`
-    : "http://localhost:3001/public/uploads/base_default.png";
+    const avatarUrl = preview
+        ? preview
+        : user.picture
+        ? `http://localhost:3001${user.picture}`
+        : "http://localhost:3001/public/uploads/base_default.png";      
+        
+    console.log(user.picture);
 
   return (
     <div className="edit-profile">
@@ -177,11 +239,11 @@ function EditProfile({ currentUserId, onRouteChange }) {
                 window.history.pushState({}, "", `/profile/${currentUserId}`);
                 onRouteChange(`profile:${currentUserId}`);
               }}
-            >
-              Cancel
+              >
+                Cancel
             </button>
           </div>
-        </form>
+        </form> 
       </div>
     </div>
   );

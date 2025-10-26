@@ -86,8 +86,11 @@ export default function CategoryPage({ catId, onRouteChange }) {
 
       if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
 
-      const data = await res.json();
-      const rawPosts = Array.isArray(data.posts) ? data.posts : [];
+        const data = await res.json();
+
+        const rawPosts = Array.isArray(data.cat)
+          ? data.cat
+          : [];
 
       if (rawPosts.length === 0) {
         setPosts([]);
@@ -118,7 +121,7 @@ export default function CategoryPage({ catId, onRouteChange }) {
           };
         })
       );
-
+        
       setPosts(postsWithExtras);
       setTotalPages(data.page_count || 1);
 

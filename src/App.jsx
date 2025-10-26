@@ -21,6 +21,8 @@ import RightSidebar from './components/RightSidebar/RightSidebar'
 import Content from './components/Content/Content'
 import Footer from './components/Footer/Footer'
 
+import EditPost from './components/EditPost/EditPost'
+
 import './App.css'
 
 function App() {
@@ -83,6 +85,8 @@ function App() {
     mainContent = <CategoryPage catId={catId} userId={loggedUserId} onRouteChange={onRouteChange} isSignedIn={isSignedIn} />;
   } else if (route.startsWith('edit-profile/')) {
     mainContent = <EditProfile onRouteChange={onRouteChange} currentUserId={loggedUserId} />;
+  } else if (route.startsWith('edit-post/')) {
+    mainContent = <EditPost onRouteChange={onRouteChange} postId={route.split('/')[1]} />;
   } else {
     mainContent = routes[route] || routes.home;
   }
