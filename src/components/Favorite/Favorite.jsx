@@ -4,10 +4,6 @@ import "./Favorite.css";
 
 function Favorites({ onRouteChange, isSignedIn, userId }) {
   const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [sort, setSort] = useState("rating");
-  const [order, setOrder] = useState("desc");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -25,7 +21,7 @@ function Favorites({ onRouteChange, isSignedIn, userId }) {
 
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/favorites?page=${page}&sort=${sort}&order=${order}`,
+          `${import.meta.env.VITE_API_URL}/favorites`,
           { credentials: "include" }
         );
         if (!res.ok) throw new Error("Failed to fetch favorites");
@@ -49,7 +45,7 @@ function Favorites({ onRouteChange, isSignedIn, userId }) {
     return () => {
       cancelled = true;
     };
-  }, [page, sort, order, isSignedIn]);
+  }, [isSignedIn]);
 
   function openPost(id) {
     onRouteChange(`post:${id}`);
@@ -62,31 +58,7 @@ function Favorites({ onRouteChange, isSignedIn, userId }) {
       </h2>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
-      {!loading && posts.length > 0 && (
-        <div className="sorting">
-          <button
-            className={`filter mr4 ${sort === "date" ? "active" : ""}`}
-            onClick={() => {
-              setSort("date");
-              setOrder("desc");
-              setPage(1);
-            }}
-          >
-            New
-          </button>
-          <button
-            className={`filter ${sort === "rating" ? "active" : ""}`}
-            onClick={() => {
-              setSort("rating");
-              setOrder("desc");
-              setPage(1);
-            }}
-          >
-            Rating
-          </button>
-          <hr />
-        </div>
-      )}
+      
 
       {loading ? (
         <p>Loading favorites...</p>
@@ -106,28 +78,6 @@ function Favorites({ onRouteChange, isSignedIn, userId }) {
               userId={userId}
             />
           ))}
-        </div>
-      )}
-
-      {!loading && posts.length > 0 && (
-        <div className="pagin">
-          <button
-            className="arrow"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-          >
-            ←
-          </button>
-          <span style={{ margin: "0 0.5rem" }}>
-            page {page} of {totalPages}
-          </span>
-          <button
-            className="arrow"
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-          >
-            →
-          </button>
         </div>
       )}
     </div>

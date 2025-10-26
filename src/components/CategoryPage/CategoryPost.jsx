@@ -8,68 +8,130 @@ export default function CategoryPage({ catId, onRouteChange }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (!catId) return;
+  // useEffect(() => {
+  //   if (!catId) return;
 
-    const fetchCategoryPosts = async () => {
-      setLoading(true);
-      setError(null);
+  //   const fetchCategoryPosts = async () => {
+  //     setLoading(true);
+  //     setError(null);
 
-      try {
-        const limit = 5;
-        const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/categories/${catId}/posts`, {
-          credentials: 'include',
-        });
+  //     try {
+  //       const limit = 5;
+  //       const res = await fetch(
+  //         `${import.meta.env.VITE_API_URL}/categories/${catId}/posts`, {
+  //         credentials: 'include',
+  //       });
 
-        if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+  //       if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
 
-        const data = await res.json();
+  //       const data = await res.json();
 
-        const rawPosts = Array.isArray(data.posts?.posts)
-          ? data.posts.posts
-          : [];
+  //       const rawPosts = Array.isArray(data.posts?.posts)
+  //         ? data.posts.posts
+  //         : [];
 
-        if (rawPosts.length != 0){
-        // Fetch categories and comments for each post
-        const postsWithExtras = await Promise.all(
-          rawPosts.map(async (post) => {
-            const [catRes, comRes] = await Promise.all([
-              fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`),
-              fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`)
-            ]);
+  //       if (rawPosts.length != 0){
+  //       // Fetch categories and comments for each post
+  //       const postsWithExtras = await Promise.all(
+  //         rawPosts.map(async (post) => {
+  //           const [catRes, comRes] = await Promise.all([
+  //             fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`),
+  //             fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`)
+  //           ]);
 
-            const catData = await catRes.json();
-            const comData = await comRes.json();
+  //           const catData = await catRes.json();
+  //           const comData = await comRes.json();
 
-            const commentCount = Array.isArray(comData)
-              ? comData.length
-              : comData.comments?.length || 0;
+  //           const commentCount = Array.isArray(comData)
+  //             ? comData.length
+  //             : comData.comments?.length || 0;
 
-            return {
-              ...post,
-              categories: catData,
-              comments: comData,
-              commentCount,
-            };
-          })
-        );
+  //           return {
+  //             ...post,
+  //             categories: catData,
+  //             comments: comData,
+  //             commentCount,
+  //           };
+  //         })
+  //       );
       
-        setPosts(postsWithExtras);
-        setTotalPages(data.page_count || 1);
-      }
-      else (
-        <p>No posts found.</p>
-      )
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  //       setPosts(postsWithExtras);
+  //       setTotalPages(data.page_count || 1);
+  //     }
+  //     else (
+  //       <p>No posts found.</p>
+  //     )
+  //     } catch (err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchCategoryPosts();
-  }, [catId, page]);
+  //   fetchCategoryPosts();
+  // }, [catId, page]);
+  useEffect(() => {
+  if (!catId) return;
+
+  const fetchCategoryPosts = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const limit = 5;
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/categories/${catId}/posts?page=${page}&limit=${limit}`,
+        { credentials: 'include' }
+      );
+
+      if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+
+      const data = await res.json();
+      const rawPosts = Array.isArray(data.posts) ? data.posts : [];
+
+      if (rawPosts.length === 0) {
+        setPosts([]);
+        setTotalPages(1);
+        return;
+      }
+
+      // Fetch categories and comments for each post
+      const postsWithExtras = await Promise.all(
+        rawPosts.map(async (post) => {
+          const [catRes, comRes] = await Promise.all([
+            fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/categories`),
+            fetch(`${import.meta.env.VITE_API_URL}/posts/${post.post_id}/comments`)
+          ]);
+
+          const catData = await catRes.json();
+          const comData = await comRes.json();
+
+          const commentCount = Array.isArray(comData)
+            ? comData.length
+            : comData.comments?.length || 0;
+
+          return {
+            ...post,
+            categories: catData,
+            comments: comData,
+            commentCount,
+          };
+        })
+      );
+
+      setPosts(postsWithExtras);
+      setTotalPages(data.page_count || 1);
+
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchCategoryPosts();
+}, [catId, page]);
+
 
   const openPost = (postId) => {
     onRouteChange(`post:${postId}`);
