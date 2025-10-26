@@ -177,7 +177,7 @@ function EditProfile({ currentUserId, onRouteChange,  }) {
     const avatarUrl = preview
         ? preview
         : user.picture
-        ? `http://localhost:3001/${user.picture}`
+        ? `http://localhost:3001${user.picture}`
         : "http://localhost:3001/public/uploads/base_default.png";      
         
     console.log(user.picture);

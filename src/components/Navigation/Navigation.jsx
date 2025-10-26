@@ -20,7 +20,7 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
     }
   }, [isSignedIn, userId]);
 
-  const avatar = user?.picture ? `http://localhost:3001/${user?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'
+  const avatar = user?.picture ? `http://localhost:3001${user?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'
   
   // console.log(avatar);
   // console.log(user);

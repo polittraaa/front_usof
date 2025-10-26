@@ -217,7 +217,7 @@ function Post({ postId, onRouteChange, isSignedIn, userId }) {
 }
   
   const avatarUrl = author?.picture
-    ? `http://localhost:3001/${author.picture}`
+    ? `http://localhost:3001${author.picture}`
     : `http://localhost:3001/public/uploads/base_default.png`;
 
   const createdAt = post?.publish_date

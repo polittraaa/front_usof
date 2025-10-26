@@ -45,7 +45,7 @@ function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
     ? new Date(post.publish_date).toLocaleDateString()
     : '';
   const avatar = author?.picture
-    ? `http://localhost:3001/${author.picture}`
+    ? `http://localhost:3001${author.picture}`
     : 'http://localhost:3001/public/uploads/base_default.png';
   const commentsCount = post.commentCount || 0;
 
@@ -125,9 +125,9 @@ function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
                     minWidth: '150px'
                   }}
                 >
-                {/* <div
+                <div
                   className="menu-item"
-                  onClick={() => onRouteChange(`editpost/${post.id}`)}
+                  onClick={() => onRouteChange(`edit-post/${post.post_id}`)}
                   style={{
                     padding: '0.5rem 1rem',
                     cursor: 'pointer',
@@ -137,7 +137,7 @@ function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
                   onMouseLeave={e => e.currentTarget.style.background = 'white'}
                 >
                   <i className="fa-solid fa-pen" style={{ marginRight: '6px' }}></i> Edit
-                </div> */}
+                </div>
                   <div
                     className="menu-item"
                     onClick={handleDelete}
