@@ -13,14 +13,14 @@
       <div className="user-container">
         <div className="user-info">
           <a
-              href={`/users/${user?.login}`}
-              onClick={(e) => {
+          href={`/users/${user?.login}`}
+            onClick={(e) => {
               e.preventDefault();
               onRouteChange(`user:${user?.user_id}`);
-              }}
+            }}
           >
-              <img src={avatar} className="user-avatar" alt="User avatar" />
-          </a>
+          <img src={avatar} alt="avatar" className="post-avatar" />
+        </a>
         </div>
         <div className="user-details ml3">
           <p className="user-member">Member since {memberSince}</p>

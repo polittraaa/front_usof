@@ -64,7 +64,7 @@ function UserPage({ authorId, userId, onRouteChange, isSignedIn}) {
 
   console.log(author)
   const memberSince = new Date(author?.created_at).toLocaleDateString(); 
-  const avatar = author?.picture ? `http://localhost:3001${author?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'
+  const avatar = author?.picture ? `http://localhost:3001/${author?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'
 
   return (
     <div className="user-header">

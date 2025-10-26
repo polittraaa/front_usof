@@ -22,10 +22,7 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
     }
   }, [isSignedIn, userId]);
 
-  const avatar = user?.picture ? `http://localhost:3001${user?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'
-  
-  // console.log(avatar);
-  // console.log(user);
+  const avatar = user?.picture ? `http://localhost:3001/${user?.picture}` : 'http://localhost:3001/public/uploads/base_default.png'
 
   function onSearchBarChange(event) {
     setSearchBar(event.target.value);
@@ -47,14 +44,12 @@ function Navigation({ onRouteChange, isSignedIn, route, userId }) {
     })
       .then(res => res.json())
       .then(data => {
-        console.log('Search results:', data.posts);
+        // console.log('Search results:', data.posts);
         setSearchResults(data.posts || []);
       })
       .catch(err => console.error('Search error:', err))
       .finally(() => setIsSearching(false));
   }
-
-
 
   function onViewProfileSubmit() {
     onRouteChange('registers')

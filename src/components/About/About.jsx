@@ -5,7 +5,7 @@ export default function About() {
     <div className="min-h-screen text-gray-700 mt6 w-70%">
       <div className="max-w-4xl mx-auto rounded-2xl shadow-md p-10">
         {/* Project Title */}
-        <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">
+        <h1 className="text-3xl font-bold text-center mb-6 text-600">
           Usof — Question & Answer Platform for Developers
         </h1>
 

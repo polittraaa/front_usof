@@ -15,7 +15,6 @@ function Card({ post, onOpen }) {
   }
 
   useEffect(() => {
-    console.log(post)
     if (!post?.author_id) return;
 
     let cancelled = false;

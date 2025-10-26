@@ -20,8 +20,6 @@ function Content({ onRouteChange, isSignedIn, userId }) {
     dispatch(fetchPosts({ page, sort, order }))
   }, [page, sort, order, dispatch]);
 
-  
-  console.log(page);
   const loading = status === "loading";
 
   function openPost(id) {
@@ -29,7 +27,7 @@ function Content({ onRouteChange, isSignedIn, userId }) {
     // window.history.pushState({}, '', `/posts/${id}`);
     onRouteChange(`post:${id}`);
   }
-
+console.log(posts)
   return (
     <div className="content-main">
       {loading && !error && (

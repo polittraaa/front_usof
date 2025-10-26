@@ -3,35 +3,36 @@
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
+    margin: 10px auto;
     width: 95%;
+    max-width: 420px;
+    padding: 12px 16px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    height: 8em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    word-wrap: break-word;
+    overflow: hidden;
 }
 
+/* Hover effect */
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
-.card a{
+.card a {
     text-decoration: none;
     color: inherit;
 }
-/* Header */
-.demo-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-}
 
+/* Meta info (author + time) */
 .demo-meta {
     display: flex;
-    gap: 8px;
+    justify-content: space-between;
     font-size: 0.85rem;
     color: #666;
-    margin: 10px;
+    margin-bottom: 6px;
 }
 
 .demo-author {
@@ -44,10 +45,12 @@
 
 /* Title */
 .demo-title {
-    font-size: 1.2rem;
-    margin: 8px 0;
+    font-size: 1.1rem;
+    margin: 4px 0 8px;
     color: #333;
     cursor: pointer;
+    line-height: 1.3;
+    word-break: break-word;
 }
 
 .demo-title:hover {
@@ -56,7 +59,8 @@
 
 /* Categories */
 .bage {
-    margin: 8px 0;
+    margin: 6px 0;
+    flex-wrap: wrap;
 }
 
 .category-badge {
@@ -65,15 +69,19 @@
     font-size: 0.75rem;
     padding: 4px 8px;
     border-radius: 8px;
-    margin-right: 4px;
+    margin: 2px 4px 2px 0;
     display: inline-block;
+    white-space: nowrap;
 }
 
-/* Stats */
+/* Stats section */
 .demo-stats {
     display: flex;
-    gap: 16px;
-    margin-top: 12px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 10px;
 }
 
 .stat-item {
@@ -84,23 +92,14 @@
     font-weight: 500;
 }
 
-/* Rating Popup */
-.stat-item i {
-    position: relative;
-}
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .card {
+        width: 100%;
+        padding: 10px;
+    }
 
-.stat-item i:hover::after {
-    content: attr(data-rank);
-    position: absolute;
-    top: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #ffdd57;
-    color: #333;
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    .demo-title {
+        font-size: 1rem;
+    }
 }

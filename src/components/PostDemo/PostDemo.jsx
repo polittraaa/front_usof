@@ -5,6 +5,7 @@ function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
   const [author, setAuthor] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
 
+  console.log(post.author_id)
   // Shorten content
   function excerpt(n = 200) {
     const short = post.content || '';
@@ -45,10 +46,11 @@ function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
     ? new Date(post.publish_date).toLocaleDateString()
     : '';
   const avatar = author?.picture
-    ? `http://localhost:3001${author.picture}`
+    ? `http://localhost:3001/${author.picture}`
     : 'http://localhost:3001/public/uploads/base_default.png';
-  const commentsCount = post.commentCount || 0;
 
+  const commentsCount = post.commentCount || 0;
+  
   async function handleDelete() {
     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
     if (!confirmDelete) return;

@@ -166,7 +166,7 @@ function EditProfile({ currentUserId, onRouteChange }) {
     const avatarUrl = preview
         ? preview
         : user.picture
-        ? `http://localhost:3001${user.picture}`
+        ? `http://localhost:3001/${user.picture}`
         : "http://localhost:3001/public/uploads/base_default.png";      
         
     console.log(user.picture);
@@ -197,7 +197,7 @@ function EditProfile({ currentUserId, onRouteChange }) {
           </div>
 
           <div className="form-group">
-            <label htmlFor="first-name">First name</label>
+            <label htmlFor="first-name">Full name</label>
             <input
               type="text"
               name="first-name"

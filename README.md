@@ -1,22 +1,83 @@
-# React + Vite
+# USOF
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is the **frontend part** of the **USOF (User Stack Overflow Forum)** application — a simplified web forum platform built with **React** and a custom **Node.js + Express + MySQL** backend.
 
-Currently, two official plugins are available:
+Users can register, log in, create posts, comment, like/dislike content, manage profiles, and mark favorite posts.  
+The frontend connects to the backend API and provides a clean, modern user interface for all features.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **User Authentication** — register, login, logout with session cookies
+- **Post Management** — create, edit, delete, and view posts
+- **Comments System** — add and read comments under posts
+- **Favorites** — save and view favorite posts
+- **Categories** — filter and tag posts by category
+- **Profile Management** — update personal info and avatar
+- **Modern UI** — responsive design using React hooks and modular CSS
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+
+**Frontend:**
+
+- React (Vite)
+- JavaScript (ES6+)
+- Fetch API
+- Custom CSS styling
+- Tachion
+
+**Backend:**
+
+- Node.js / Express
+- MySQL
+- JWT authentication
+- RESTful API
+
+---
+
+## How to Run
+
+### Clone the Repository
+
+````bash
+git clone ssh://git@git.green-lms.app:22022/challenge-371/ptovstonoh-6435.git
+cd ptovstonoh-6435
+
 
 # How to run
-Copie the repository link https://github.com/polittraaa/front_usof
+Copie the repository link ssh://git@git.green-lms.app:22022/challenge-371/ptovstonoh-6435.git
 
-then run npm i
-and npm run dev
+then start the backend part of the solution
+
+3.  **Configure environment variables**
+    Create a .env file in the root folder with your database and session credentials:
+    ```.env # SERVER_PORT=yourtPort
+
+        # Secret for user sessions (use any long random string)
+        TOKEN_SECRET=yourSecretKeyHere
+        COOKIE_SECRET=yourCookieKey
+
+        # Database configuration
+        DATABASE_HOST=127.0.0.1
+        DATABASE_PORT=3306
+        DATABASE_USER=yourDbUser
+        DATABASE_PASSWORD=yourDbPassword
+        DATABASE_NAME=usof_db
+
+        # Email configuration
+        MAIL=yourEmail@example.com
+        MAIL_PASS=yourAppPasswordOrToken
+        ```
+        run the backend with
+
+        npm start
+
+more information on [back_usof\README.md]
+
+to run front part
+run npm i
+npm run dev
+````

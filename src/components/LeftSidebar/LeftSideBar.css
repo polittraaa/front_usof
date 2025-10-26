@@ -1,4 +1,4 @@
-.custom-hover:hover {
+hover:hover {
     background-color: #f6f8f9;
     border-radius: 5px;
 }
@@ -10,10 +10,10 @@
     min-height: 100vh;
     border-right: 1px solid rgb(193 124 74);
     background-color: #8c9381;
-    width: 20%; 
-    position: fixed; 
-    left: 0; 
-    top: 0; 
+    width: 20%;
+    position: fixed;
+    left: 0;
+    top: 0;
     overflow: auto;
 }
 
@@ -21,7 +21,7 @@
     margin-top: 1rem;
     margin-bottom: 1.5rem;
     /* border-bottom: 1px solid  #285643; */
-    border-bottom: 1px solid rgb(193 124 74);
+    /* border-bottom: 1px solid rgb(186, 91, 24); */
     height: 20%;
     padding: 20px;
     overflow: auto;
@@ -40,6 +40,45 @@
     cursor: pointer;
     font-size: 28px;
 }
-.left-sidebar-link:hover{
+
+.left-sidebar-link:hover {
     background-color: #a1af9f;
+}
+
+/* ✅ Responsive scaling */
+@media (max-width: 1024px) {
+    .left-sidebar-container {
+        width: 20%;
+    }
+
+    .left-sidebar-link {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .left-sidebar-container {
+        width: 20%;
+        height: auto;
+        border-right: none;
+
+    }
+
+    .left-sidebar-links-container {
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .left-sidebar-link {
+        font-size: 1.2rem;
+        margin: 4px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .left-sidebar-link {
+        font-size: 1rem;
+        padding: 4px 6px;
+    }
 }

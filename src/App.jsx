@@ -91,15 +91,13 @@ function App() {
     mainContent = routes[route] || routes.home;
   }
 
-  console.log(route);
-
   return (
     <>
     <div className='page'>
       <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} route={route} userId={loggedUserId} />
 
       {/* <div className="main" style={{ flex: 1 }}> */}
-       <div className="main">
+       <div className="main" style={{ flex: '1', gap: '0'}}>
         {!authRoutes.includes(route) && (
             <LeftSidebar onRouteChange={onRouteChange} isSignedIn={isSignedIn} userId={loggedUserId} />
         )}

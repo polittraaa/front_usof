@@ -11,7 +11,6 @@ function RightSidebar({ onRouteChange }) {
   const {items: posts, status, error} = useSelector(
     (state) => state.posts
   );
-  console.log(posts)
 
   useEffect(() => {
       if (status === 'idle') {
@@ -28,9 +27,6 @@ function RightSidebar({ onRouteChange }) {
     return b.rating - a.rating;
   })
   .slice(0, 3);
-
-
-    console.log(hotTopics)
 
     function openPost(id) {
     // link apdate

@@ -26,7 +26,6 @@ function LeftSidebar({ onRouteChange, isSignedIn, userId }) {
     }
   }, [isSignedIn, userId]);
 
-  console.log(user)
   return (
     <div className="left-sidebar-container">
       <div className="left-sidebar-links-container tl ml3 mr3">
@@ -55,7 +54,7 @@ function LeftSidebar({ onRouteChange, isSignedIn, userId }) {
           Categories
         </span>
 
-        <hr className="mr3 ml3 bg-orange" />
+        <hr className="mr3 ml3 bg-green" />
 
         {/* Conditional rendering for admin */}
         {user?.role === 'admin' && (
