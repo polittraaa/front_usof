@@ -125,6 +125,7 @@ function PostDemo({ post, isSignedIn, onOpen, onRouteChange, userId }) {
                     minWidth: '150px'
                   }}
                 >
+
                 <div
                   className="menu-item"
                   onClick={() => onRouteChange(`edit-post/${post.post_id}`)}

@@ -19,7 +19,7 @@ body {
     width: 100%;
     max-width: 420px;
     transition: transform 0.2s ease;
-    margin-top: 3em;
+    margin-top: 6em;
 }
 
 .register-container:hover {

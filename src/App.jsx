@@ -13,6 +13,7 @@ import Post from './components/Post/Post'
 import CreatePost from './components/CreatePost/CreatePost'
 import CategoryPage from './components/CategoryPage/CategoryPost'
 import EditProfile from './components/EditProfile/EditProfile'
+import Favorites from './components/Favorite/Favorite'
 
 import Navigation from './components/Navigation/Navigation'
 import LeftSidebar from './components/LeftSidebar/LeftSidebar'
@@ -68,11 +69,9 @@ function App() {
     'verify-email': <ConfirmEmail onRouteChange={onRouteChange} />, 
     'password-reset': <PasswordReset token={passwordResetToken} />,
     'create-post': <CreatePost onRouteChange={onRouteChange} userId={loggedUserId} />,
-    userPage: <UserPage currentUserId={loggedUserId} onRouteChange={onRouteChange} />
+    userPage: <UserPage currentUserId={loggedUserId} onRouteChange={onRouteChange} />,
+    favorites: <Favorites UserId={loggedUserId} onRouteChange={onRouteChange}  isSignedIn={isSignedIn} />
   };
-
-  console.log(route);
-  
 
   let mainContent;
   if (route.startsWith('post:')) {

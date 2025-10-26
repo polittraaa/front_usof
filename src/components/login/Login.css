@@ -6,13 +6,12 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
 }
 
 /* Shared container */
 .login-container {
-    margin-bottom: 4em;
-    margin-top: 2em;
+    margin-bottom: 3em;
+    margin-top: 6em;
     background: rgba(243, 231, 225, 0.95);
     backdrop-filter: blur(8px);
     border: 1px solid #e3c68d;
