@@ -4,7 +4,7 @@ import './EditPost.css';
 function EditPost({ postId, onRouteChange }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [isActive, setIsActive] = useState('');
+    const [isActive, setIsActive] = useState(true);
     const [error, setError] = useState('');
     
     const [categories, setCategories] = useState([]);
@@ -52,7 +52,7 @@ function EditPost({ postId, onRouteChange }) {
                 body: JSON.stringify({
                     title,
                     content,
-                    post_status: isActive,
+                    post_status: isActive ? 'active' : 'inactive',
                     category: categories.map(c => c.category_id)
                 })
             });
@@ -166,6 +166,19 @@ function EditPost({ postId, onRouteChange }) {
                                 ))}
                             </div>
                         )}
+                    </div>
+
+                    <div className="active-status">
+                        <label>Active status:</label>
+                        <div
+                            className={`toggle-switch ${isActive ? "active" : ""}`}
+                            onClick={() => setIsActive(!isActive)}
+                        >
+                            <div className="toggle-thumb"></div>
+                        </div>
+                        <span className={`status-label ${isActive ? "active" : "inactive"}`}>
+                            {isActive ? "Active" : "Inactive"}
+                        </span>
                     </div>
 
                     <div className="form-actions">

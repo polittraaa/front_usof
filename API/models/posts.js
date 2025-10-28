@@ -310,7 +310,7 @@ class Post {
     }
   }
 
-  async update_post(post_id, updates){
+ async update_post(post_id, updates){
     const { category, ...post_updates } = updates;
 
     if (Object.keys(post_updates).length > 0){
@@ -323,10 +323,12 @@ class Post {
         .where({ post_id })
         .del();
 
-      await this.db('post_categories').insert({
+      const inserts = category.map(catId => ({
         post_id,
-        category_id: category
-      });
+        category_id: catId
+      }));
+
+      await this.db('post_categories').insert(inserts);
     }
   }
 
